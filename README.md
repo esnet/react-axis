@@ -1,9 +1,13 @@
 # React Axis
 
+An axis widget intended to replace generated D3 SVG with a React friendly component. Under the hood, it still uses D3's scales and format, but rendering and animation is done with React.
+
+This is a very minimal version of the functionality needed for a full charting app, but it's a start. We will be merging this into react-timeseries-charts. Once that happens we'll bump this to v1.0.
+
 Getting started
 ---------------
 
-This React Axis component is intended to be installed with [npm](https://www.npmjs.com/) and the built into your project with a tool like [Webpack](https://webpack.github.io/). It expects React to be present, of course. This component is also used within our TimeSeries visualization library: react-timeseries-charts. You might want to check that out.
+This React Axis component is intended to be installed with [npm](https://www.npmjs.com/) and the built into your project with a tool like [Webpack](https://webpack.github.io/). As it is a standalone axis component, most likely it should be used in another library, but who knows. Either way, it expects React to be present.
 
 To install:
 
@@ -21,10 +25,6 @@ This will install the development dependencies into your node_modules directory.
 You can then start up the test server, as well as automatic source building, by doing:
 
     npm run start-website
-
-Then, point your browser to:
-
-[http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
 
 License
 -------

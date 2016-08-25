@@ -1,0 +1,62 @@
+{
+  "name": "react-axis",
+  "version": "0.1.0",
+  "description": "A flexible axis component build with React",
+  "keywords": [
+    "axis",
+    "charts",
+    "react"
+  ],
+  "main": "lib/entry",
+  "author": "ESnet Tools Team <tools@es.net>",
+  "repository": "esnet/react-axis",
+  "bugs": {
+    "url": "https://github.com/esnet/react-axis/issues"
+  },
+  "scripts": {
+    "docs": "echo \"*** Building API docs\n\" && react-docgen src/components -x js -o src/website/api/docs.json --pretty",
+    "lint": "eslint src/*.jsx src/*.js",
+    "test": "npm run lint",
+    "build-lib": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --stage 0 --out-dir lib/components && babel src/js --stage 0 --out-dir lib/js && babel src/entry.js --stage 0 --out-file lib/entry.js",
+    "start-website": "react-scripts start",
+    "build": "echo \"*** Building website\n\" && react-scripts build"
+  },
+  "pre-commit": [
+    "lint",
+    "build"
+  ],
+  "license": "BSD-3-Clause-LBNL",
+  "dependencies": {
+    "d3-format": "^0.5.1",
+    "d3-scale": "^0.7.2",
+    "d3-time": "^0.2.5",
+    "d3-time-format": "^0.3.1",
+    "merge": "^1.2.0",
+    "moment": "^2.8.4",
+    "moment-duration-format": "^1.3.0",
+    "react-addons-css-transition-group": "^15.3.1"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.3",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "flexbox-react": "^4.0.0",
+    "raw-loader": "^0.5.1",
+    "react": "^15.3.1",
+    "react-docgen": "^2.9.1",
+    "react-dom": "^15.3.1",
+    "react-markdown": "^1.0.5",
+    "react-router": "^2.6.1",
+    "react-scripts": "^0.2.2",
+    "underscore": "^1.8.3"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
+  }
+}

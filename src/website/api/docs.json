@@ -1,0 +1,94 @@
+{
+  "src/components/Axis.js": {
+    "description": "A basic Axis component rendered into SVG. The component can be aligned using the\n`position` prop, to display it above, below, left or right of a chart or other\nvisualization. Scaling of the axis is done with the `min` and `max` props. The scale\ntype can be \"linear\" or \"log\", controlled with the `type` prop.\n\nOverall size of the SVG component is done with `width` and `height`. You can also control\nthe number of ticks with `tickCount` (for linear scales), the size of the ticks with\n`tickSize`.",
+    "displayName": "Axis",
+    "methods": [
+      {
+        "name": "renderAxis",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderTicks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "align": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"left\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": "The label to render"
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the rectangle to render into",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height of the rectangle to render into",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "tickCount": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "tickSize": {
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "margin": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "type": {
+        "defaultValue": {
+          "value": "\"linear\"",
+          "computed": false
+        }
+      }
+    }
+  }
+}

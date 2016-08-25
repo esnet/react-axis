@@ -1,0 +1,22 @@
+.ticks-enter {
+  opacity: 0.01;
+}
+
+.ticks-enter.ticks-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.ticks-leave {
+  opacity: 1;
+}
+
+.ticks-leave.ticks-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms ease-in;
+}
+
+.tick-grp {
+    -webkit-transition: -webkit-transform 2s;
+    transition: transform 200ms;
+}

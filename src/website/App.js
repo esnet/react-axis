@@ -31,7 +31,7 @@ class App extends Component {
                     <img src={esnetLogo} alt="ESnet" width="32px" height="32px" /></a>
                 </li>
                 <li>
-                  <a href="https://github.com/esnet/react-timeseries-charts/">
+                  <a href="https://github.com/esnet/react-axis/">
                     <img src={githubLogo}  alt="Github" width="32px" height="32px" /></a>
                 </li>
               </ul>
@@ -76,8 +76,6 @@ class App extends Component {
 
                     <ul className="nav nav-sidebar">
                         <li><a href="http://software.es.net/react-timeseries-charts/">Charts library</a></li>
-                        <li><a href="http://software.es.net/pond/">pond.js</a></li>
-                        <li><a href="http://software.es.net/react-network-diagrams/">Network Diagrams</a></li>
                     </ul>
                 </div>
 

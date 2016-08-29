@@ -7,6 +7,7 @@
     "charts",
     "react"
   ],
+  "homepage": "http://software.es.net/react-axis",
   "main": "lib/entry",
   "author": "ESnet Tools Team <tools@es.net>",
   "repository": "esnet/react-axis",

@@ -28,6 +28,7 @@ const basic = React.createClass({
                     <div className="col-md-3">
                         <div style={{float: "right"}}>
                         <Axis
+                            standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             max={this.state.ymax} min={1}
@@ -48,6 +49,7 @@ const basic = React.createClass({
                     <div className="col-md-3">
                         <div style={{float: "left"}}>
                         <Axis
+                            standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             max={this.state.ymax} min={1}
@@ -61,6 +63,7 @@ const basic = React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <Axis
+                            standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             min={1} max={this.state.ymax}
@@ -89,6 +92,7 @@ const basic = React.createClass({
                     </div>
                     <div className="col-md-12">
                         <Axis
+                            standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             min={1} max={this.state.ymax}
@@ -117,17 +121,22 @@ const basic = React.createClass({
             <div className="row">
                 <div className="col-md-12" style={{fontSize: 14, color: "#777"}}>
                     <span
-                        style={this.state.type === "log" ? linkStyleActive : linkStyle}
+                        style={this.state.type !== "linear" ? linkStyleActive : linkStyle}
                         onClick={() => this.setState({type: "linear"})}>
-                            Linear
+                            Linear scale
                     </span>
                     <span> | </span>
                     <span
-                        style={this.state.type === "linear" ? linkStyleActive : linkStyle}
-                        onClick={() => this.setState({type: "log"})}>
-                            Log
+                        style={this.state.type !== "power" ? linkStyleActive : linkStyle}
+                        onClick={() => this.setState({type: "power"})}>
+                            Power scale
                     </span>
-
+                    <span> | </span>
+                    <span
+                        style={this.state.type !== "log" ? linkStyleActive : linkStyle}
+                        onClick={() => this.setState({type: "log"})}>
+                            Log scale
+                    </span>
                     <span style={{marginLeft: 50}}>{" "}</span>
 
                     <span

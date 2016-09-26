@@ -20,7 +20,7 @@
     "test": "npm run lint",
     "build-lib": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --stage 0 --out-dir lib/components && babel src/js --stage 0 --out-dir lib/js && babel src/entry.js --stage 0 --out-file lib/entry.js",
     "start-website": "react-scripts start",
-    "build-website": "echo \"*** Building website\n\" rm -rf docs && react-scripts build && mv build docs"
+    "build-website": "echo \"*** Building website\n\" && rm -rf docs && react-scripts build && mv build docs"
   },
   "pre-commit": [
     "lint",

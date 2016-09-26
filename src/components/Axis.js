@@ -11,7 +11,7 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { format } from "d3-format";
-import { scaleLinear, scaleLog } from "d3-scale";
+import { scaleLinear, scaleLog, scalePow } from "d3-scale";
 import "./Axis.css";
 
 
@@ -25,8 +25,6 @@ const Tick = React.createClass({
             fill: "#b0b0b0",
             pointerEvents: "none"
         };
-
-        console.log(i, t, x, isTop, `translate(${x}px, ${isTop ? this.props.height : 0}px)`);
 
         return (
             <g
@@ -129,7 +127,9 @@ export default React.createClass({
             tickCount: 10,
             tickSize: 5,
             margin: 10,
-            type: "linear"
+            type: "linear",
+            exponent: 2,
+            standalone: false
         };
     },
 
@@ -138,22 +138,32 @@ export default React.createClass({
         align: React.PropTypes.oneOf(["center", "left"]),
 
         /**
-         * The label to render
+         * The label to render.
          */
         label: React.PropTypes.string.isRequired,
 
         /**
-         * The width of the rectangle to render into
+         * The width of the rectangle to render into.
          */
         width: React.PropTypes.number,
 
         /**
-         * The height of the rectangle to render into
+         * The height of the rectangle to render into.
          */
-        height: React.PropTypes.number
+        height: React.PropTypes.number,
+
+        /**
+         * The type of the scale: "linear", "log" or "power".
+         */
+        type: React.PropTypes.oneOf(["linear", "log", "power"]),
+
+        /**
+         * The exponent if a power scale is used.
+         */
+        exponent: React.PropTypes.number,
     },
 
-    renderAxis() {
+    renderAxisLine() {
         const p = this.props.position;
         if ( p === "left" || p === "right" ) {
             return (
@@ -180,7 +190,7 @@ export default React.createClass({
         }
     },
 
-    renderTicks() {
+    renderAxisTicks() {
         const p = this.props.position;
 
         let scale;
@@ -195,6 +205,15 @@ export default React.createClass({
 
             case "log":
                 scale = scaleLog()
+                    .domain([this.props.min, this.props.max])
+                    .range(p === "left" || p === "right" ?
+                        [this.props.height - this.props.margin * 2, 0] :
+                        [0, this.props.width - this.props.margin * 2]);
+            break;
+
+            case "power":
+                scale = scalePow()
+                    .exponent(this.props.exponent)
                     .domain([this.props.min, this.props.max])
                     .range(p === "left" || p === "right" ?
                         [this.props.height - this.props.margin * 2, 0] :
@@ -223,14 +242,26 @@ export default React.createClass({
         });
     },
 
-    render() {
+    renderAxis() {
         return (
-            <svg height={this.props.height} width={this.props.width}>
-                {this.renderAxis()}
+            <g>
+                {this.renderAxisLine()}
                 <ReactCSSTransitionGroup component="g" transitionName="ticks" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-                    {this.renderTicks()}
+                    {this.renderAxisTicks()}
                 </ReactCSSTransitionGroup>
-            </svg>
+            </g>
         );
+    },
+
+    render() {
+        if (this.props.standalone) {
+            return (
+                <svg height={this.props.height} width={this.props.width}>
+                    {this.renderAxis()}
+                </svg>
+            );
+        } else {
+            return this.renderAxis()
+        }
     }
 });

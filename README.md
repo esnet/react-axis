@@ -1,5 +1,7 @@
 # React Axis
 
+THIS IS NOT READY FOR PRODUCTION USE.
+
 An axis widget intended to replace generated D3 SVG with a React friendly component. Under the hood, it still uses D3's scales and format, but rendering and animation is done with React.
 
 This is a very minimal version of the functionality needed for a full charting app, but it's a start. We will be merging this into react-timeseries-charts. Once that happens we'll bump this to v1.0.

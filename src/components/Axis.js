@@ -129,7 +129,13 @@ export default React.createClass({
             margin: 10,
             type: "linear",
             exponent: 2,
-            standalone: false
+            standalone: false,
+            labelPosition: 50,
+            labelStyle: {
+                fill: "grey",
+                stroke: "none",
+                pointerEvents: "none"
+            }
         };
     },
 
@@ -163,6 +169,43 @@ export default React.createClass({
         exponent: React.PropTypes.number,
     },
 
+    renderAxisLabel() {
+        const { width, height, position, labelPosition, labelStyle } = this.props;
+        let translate;
+        let rotate = `rotate(0)`;
+        let anchor = "start";
+        switch (position) {
+            case "left":
+                translate = `translate(${width - labelPosition},5)`;
+                rotate = `rotate(-90)`;
+                anchor = "end";
+                break;
+            case "right":
+                translate = `translate(${labelPosition},5)`;
+                rotate = `rotate(-90)`;
+                anchor = "end";
+                break;
+            case "top":
+                translate = `translate(5, ${height - labelPosition})`;
+                break;
+            case "bottom":
+                translate = `translate(5, ${labelPosition})`;
+                break;
+            default:
+                //pass
+        }
+        return (
+            <g transform={translate}>
+                <text
+                    transform={rotate}
+                    textAnchor={anchor}
+                    style={labelStyle}>
+                    {this.props.label}
+                </text>
+            </g>
+        );
+    },
+ 
     renderAxisLine() {
         const p = this.props.position;
         if ( p === "left" || p === "right" ) {
@@ -249,6 +292,7 @@ export default React.createClass({
                 <ReactCSSTransitionGroup component="g" transitionName="ticks" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
                     {this.renderAxisTicks()}
                 </ReactCSSTransitionGroup>
+                {this.renderAxisLabel()}
             </g>
         );
     },

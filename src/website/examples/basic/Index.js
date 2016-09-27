@@ -28,11 +28,13 @@ const basic = React.createClass({
                     <div className="col-md-3">
                         <div style={{float: "right"}}>
                         <Axis
+                            label="Left axis"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             max={this.state.ymax} min={1}
-                            width={50} height={500} />
+                            labelPosition={25}
+                            width={80} height={500} />
                         </div>
                     </div>
                     <div className="col-md-9" style={{background: "#EEE", color: "#AAA", height: 500}}>
@@ -49,11 +51,13 @@ const basic = React.createClass({
                     <div className="col-md-3">
                         <div style={{float: "left"}}>
                         <Axis
+                            label="Right axis"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             max={this.state.ymax} min={1}
-                            width={50} height={500} />
+                            labelPosition={35}
+                            width={80} height={500} />
                         </div>
                     </div>
                 </div>
@@ -63,10 +67,12 @@ const basic = React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <Axis
+                            label="Top axis"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             min={1} max={this.state.ymax}
+                            labelPosition={20}
                             width={800} height={50} />
                     </div>
                     <div className="col-md-12">
@@ -92,10 +98,12 @@ const basic = React.createClass({
                     </div>
                     <div className="col-md-12">
                         <Axis
+                            label="Bottom axis"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             min={1} max={this.state.ymax}
+                            labelPosition={30}
                             width={800} height={50} />
                     </div>
                 </div>

@@ -15,7 +15,7 @@ const basic = React.createClass({
 
     getInitialState() {
         return {
-            type: "log",
+            type: "linear",
             position: "left",
             ymax: 10
         };
@@ -29,6 +29,7 @@ const basic = React.createClass({
                         <div style={{float: "right"}}>
                         <Axis
                             label="Left axis"
+                            format="d"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
@@ -52,6 +53,7 @@ const basic = React.createClass({
                         <div style={{float: "left"}}>
                         <Axis
                             label="Right axis"
+                            format="d"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
@@ -68,6 +70,7 @@ const basic = React.createClass({
                     <div className="col-md-12">
                         <Axis
                             label="Top axis"
+                            format="d"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
@@ -99,6 +102,7 @@ const basic = React.createClass({
                     <div className="col-md-12">
                         <Axis
                             label="Bottom axis"
+                            format="d"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}

@@ -135,7 +135,8 @@ export default React.createClass({
                 fill: "grey",
                 stroke: "none",
                 pointerEvents: "none"
-            }
+            },
+            absolute: false,
         };
     },
 
@@ -167,6 +168,17 @@ export default React.createClass({
          * The exponent if a power scale is used.
          */
         exponent: React.PropTypes.number,
+
+        /**
+         * The d3 format for the tick labels. The default it to
+         * compute this automatically from the scale.
+         */
+        format: React.PropTypes.string,
+
+        /**
+         * Apply abs(value) to all values.
+         */
+        absolute: React.PropTypes.bool,
     },
 
     renderAxisLabel() {
@@ -269,7 +281,21 @@ export default React.createClass({
          
         return scale.ticks(this.props.tickCount).map((tickValue, tickIndex) => {
             const tickPosition = scale(tickValue) + this.props.margin;
-            const tickFormat = format(".0f"); //"scale.tickFormat();
+            const tickFormatSpecifier = this.props.tickFormatSpecifier;
+
+            // Get a d3 format function, either from the string the user
+            // supplied in the format prop, or ask the scale for its
+            // suggestion
+            const d3Format = this.props.format ?
+                format(this.props.format) :
+                scale.tickFormat(this.props.tickCount, tickFormatSpecifier);
+
+            // The user can specify the values all be positive
+            const absolute = this.props.absolute;
+
+            const tickFormat = (d) =>
+                absolute ? d3Format(Math.abs(d)) : d3Format(d);
+
             return (
                 <Tick
                     key={tickValue}

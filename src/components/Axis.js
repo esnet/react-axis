@@ -12,99 +12,8 @@ import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { format } from "d3-format";
 import { scaleLinear, scaleLog, scalePow } from "d3-scale";
+import Tick from "./Tick";
 import "./Axis.css";
-
-
-const Tick = React.createClass({
-
-    renderVerticalTick(i, t, x, fmt, isTop) {
-
-        const textStyle = {
-            fontSize: 11,
-            textAnchor: "left",
-            fill: "#b0b0b0",
-            pointerEvents: "none"
-        };
-
-        return (
-            <g
-                className="tick-grp"
-                style={{
-                    transform: `translate(${x}px, ${isTop ? this.props.height : 0}px)`
-                }}
-                key={`marker-${fmt(t)}`}>
-                <line
-                    className="tick-mark"
-                    key={`tick-${t}`}
-                    style={{stroke: "#AAA", strokeWidth: 0.5}}
-                    x1={0} y1={0} x2={0}
-                    y2={isTop ? -this.props.tickSize : this.props.tickSize} />
-                <text
-                    className="tick-label"
-                    key={`label-${t}`}
-                    style={textStyle}
-                    y={isTop ? -this.props.tickSize - 3 : this.props.tickSize + 3}
-                    alignmentBaseline={isTop ? "baseline" : "hanging"}
-                    textAnchor="middle">
-                    {fmt(t)}
-                </text>
-            </g>
-        );
-    },
-
-    renderHorizontalTick(i, t, y, fmt, isLeft) {
-
-        const textStyle = {
-            fontSize: 11,
-            textAnchor: "left",
-            fill: "#b0b0b0",
-            pointerEvents: "none"
-        };
-
-        return (
-            <g
-                className="tick-grp"
-                style={{
-                    transform: `translate(${isLeft ? this.props.width : 0}px,${y}px)`
-                }}
-                key={`marker-${fmt(t)}`}>
-                <line
-                    className="tick-mark"
-                    key={`tick-${t}`}
-                    style={{stroke: "#AAA", strokeWidth: 0.5}}
-                    x1={isLeft ? -this.props.tickSize : this.props.tickSize}
-                    y1={0} x2={0} y2={0} />
-                <text
-                    className="tick-label"
-                    key={`label-${t}`}
-                    style={textStyle}
-                    x={isLeft ? -this.props.tickSize - 3 : this.props.tickSize + 3}
-                    alignmentBaseline="middle"
-                    textAnchor={isLeft ? "end" : "start"}>
-                    {fmt(t)}
-                </text>
-            </g>
-        );
-    },
-
-    render() {
-        const {
-            tickFormat,
-            tickValue,
-            tickPosition,
-            tickIndex,
-            align
-        } = this.props;
-
-        if (align === "top" || align === "bottom") {
-            return this.renderVerticalTick(
-                tickIndex, tickValue, tickPosition, tickFormat, align === "top");
-        } else {
-            return this.renderHorizontalTick(
-                tickIndex, tickValue, tickPosition, tickFormat, align === "left");
-        }
-    }
-});
 
 /**
  * A basic Axis component rendered into SVG. The component can be aligned using the
@@ -126,6 +35,7 @@ export default React.createClass({
             height: 100,
             tickCount: 10,
             tickSize: 5,
+            tickExtend: 0,
             margin: 10,
             type: "linear",
             exponent: 2,
@@ -179,6 +89,18 @@ export default React.createClass({
          * Apply abs(value) to all values.
          */
         absolute: React.PropTypes.bool,
+
+        /**
+         * The size of each tick mark.
+         */
+        tickSize: React.PropTypes.number,
+
+        /**
+         * Extend the tick marks away from the tick label
+         * by this amount. This can be used to provide a grid
+         * line for each tick.
+         */
+        tickExtend: React.PropTypes.number,
     },
 
     renderAxisLabel() {
@@ -276,7 +198,7 @@ export default React.createClass({
             break;
 
             default:
-            break;
+                //pass
         }
          
         return scale.ticks(this.props.tickCount).map((tickValue, tickIndex) => {
@@ -293,7 +215,7 @@ export default React.createClass({
             // The user can specify the values all be positive
             const absolute = this.props.absolute;
 
-            const tickFormat = (d) =>
+            const tickFormat = d =>
                 absolute ? d3Format(Math.abs(d)) : d3Format(d);
 
             return (
@@ -305,6 +227,7 @@ export default React.createClass({
                     tickPosition={tickPosition}
                     tickIndex={tickIndex}
                     tickSize={this.props.tickSize}
+                    tickExtend={this.props.tickExtend}
                     width={this.props.width}
                     height={this.props.height} />
             );

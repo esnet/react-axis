@@ -4,6 +4,13 @@
     "displayName": "Axis",
     "methods": [
       {
+        "name": "renderAxisLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
         "name": "renderAxisLine",
         "docblock": null,
         "modifiers": [],
@@ -108,15 +115,49 @@
           "computed": false
         }
       },
-      "tickCount": {
+      "format": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The d3 format for the tick labels. The default it to\ncompute this automatically from the scale."
+      },
+      "absolute": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply abs(value) to all values.",
         "defaultValue": {
-          "value": "10",
+          "value": "false",
           "computed": false
         }
       },
       "tickSize": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The size of each tick mark.",
         "defaultValue": {
           "value": "5",
+          "computed": false
+        }
+      },
+      "tickExtend": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Extend the tick marks away from the tick label\nby this amount. This can be used to provide a grid\nline for each tick.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "tickCount": {
+        "defaultValue": {
+          "value": "10",
           "computed": false
         }
       },
@@ -131,7 +172,81 @@
           "value": "false",
           "computed": false
         }
+      },
+      "labelPosition": {
+        "defaultValue": {
+          "value": "50",
+          "computed": false
+        }
+      },
+      "labelStyle": {
+        "defaultValue": {
+          "value": "{\n    fill: \"grey\",\n    stroke: \"none\",\n    pointerEvents: \"none\"\n}",
+          "computed": false
+        }
       }
     }
+  },
+  "src/components/Tick.js": {
+    "description": "",
+    "displayName": "Tick",
+    "methods": [
+      {
+        "name": "renderVerticalTick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "i",
+            "type": null
+          },
+          {
+            "name": "t",
+            "type": null
+          },
+          {
+            "name": "x",
+            "type": null
+          },
+          {
+            "name": "fmt",
+            "type": null
+          },
+          {
+            "name": "isTop",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "renderHorizontalTick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "i",
+            "type": null
+          },
+          {
+            "name": "t",
+            "type": null
+          },
+          {
+            "name": "y",
+            "type": null
+          },
+          {
+            "name": "fmt",
+            "type": null
+          },
+          {
+            "name": "isLeft",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ]
   }
 }

@@ -28,13 +28,14 @@ const basic = React.createClass({
                     <div className="col-md-3">
                         <div style={{float: "right"}}>
                         <Axis
+                            tickExtend={400}
                             label="Left axis"
                             format="d"
                             standalone={true}
                             type={this.state.type}
                             position={this.state.position}
                             max={this.state.ymax} min={1}
-                            labelPosition={25}
+                            labelPosition={30}
                             width={80} height={500} />
                         </div>
                     </div>

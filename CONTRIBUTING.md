@@ -18,7 +18,7 @@ WORK ON `master` or `develop`.*
 
 3. *Follow the style of the code.* All code must follow the style of the
 project. We generally adhere to the [Google JavaScript style
-guide](https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+guide](http://google.github.io/styleguide/jsguide.html).
 Please lint your code with a reasonable linting tool.
 
 4. *Create examples.* All new features must have appropriate examples in the
@@ -26,7 +26,7 @@ examples directory. If you are adding a major feature you may wish to create a
 new example page.  If you are adding a smaller feature you may just wish to
 augment one of the existing examples.
 
-5. *Tests.* We currently evaluating how to test this library. In the mean time
+5. *Tests.* We are currently evaluating how to test this library. In the mean time
 please be sure to check that all of the examples continue to work before
 submitting your pull request. If you have suggestions on how to build tests
 we'd love to hear them.

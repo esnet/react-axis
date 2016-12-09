@@ -11,18 +11,17 @@
 /* eslint max-len:0 */
 
 import React from "react";
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import _ from "underscore";
-import { Flexbox, FlexItem } from "flexbox-react";
+// import Flexbox from "flexbox-react";
 
 import Highlighter from "../components/highlighter";
 import APIDoc from "./APIDoc";
-import Meta from "../examples/examples.json";
-import Examples from "../examples/index.js";
+// import Meta from "../examples/examples.json";
+// import Examples from "../examples/index.js";
 import docsFile from "./docs.json";
 
-console.log("Examples", Examples);
-
+/*
 const Example = React.createClass({
     render() {
         const style = {
@@ -39,26 +38,26 @@ const Example = React.createClass({
         const name = example.key;
         const imgName = `${name}_thumbnail`;
         const img = Examples[imgName];
-        console.log(" - img", img, name, imgName);
+
         const link = (
             <Link to={`example/${name}`}>{example.value.title}</Link>
         );
         return (
-            <FlexItem minWidth="220px" >
+            <Flexbox minWidth="220px" >
                 <div style={style}>
                     <img src={img} alt={`${name}`}/>
                 </div>
                 <div style={{paddingLeft: 5, fontSize: "smaller"}}>
                 {link}
                 </div>
-            </FlexItem>
+            </Flexbox>
         );
     }
 });
 
+
 const TaggedExamples = React.createClass({
     render() {
-        console.log("Tagged examples:");
         const exampleList = [];
         _.forEach(Meta, (value, key) => {
             const tags = value.tags;
@@ -88,6 +87,7 @@ const TaggedExamples = React.createClass({
         }
     }
 });
+*/
 
 export default React.createClass({
 
@@ -96,16 +96,12 @@ export default React.createClass({
     render() {
         const component = this.props.params.component;
         const path = `src/components/${component}.js`;
-
-        console.log(path, docsFile);
-
         if (!_.has(docsFile, path)) {
             return (
                 <div>API could not be found</div>
             );
         }
         const title = docsFile[path].displayName;
-        console.log(title);
         return (
             <div>
                 <h2>{title}</h2>

@@ -13,7 +13,8 @@ import React from "react";
 import Highlighter from "../components/highlighter";
 import Markdown from "react-markdown";
 
-import text from "raw!./intro.md";
+import data from "./intro.md";
+const text = window.atob(data.split(",")[1]);
 
 export default React.createClass({
 

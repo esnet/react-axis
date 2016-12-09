@@ -13,7 +13,9 @@
 //
 
 import basic from "./basic/Index";
+import time from "./time/Index";
 
 export default {
-    ...basic
+    ...basic,
+    ...time
 };

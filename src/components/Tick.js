@@ -14,9 +14,7 @@ export default React.createClass({
 
     displayName: "Tick",
 
-    renderVerticalTick(i, t, x, fmt, isTop) {
-        const { tickSize, tickExtend } = this.props;
-        const dir = isTop ? -1 : 1;
+    renderLabel(align, t, fmt, isTop) {
 
         const textStyle = {
             fontSize: 11,
@@ -24,6 +22,42 @@ export default React.createClass({
             fill: "#b0b0b0",
             pointerEvents: "none"
         };
+
+        if (align === "adjacent") {
+            return (
+                <text
+                    className="tick-label"
+                    key={`label-${t}`}
+                    style={textStyle}
+                    y={5}
+                    x={2}
+                    alignmentBaseline={isTop ? "baseline" : "hanging"}
+                    textAnchor="left">
+                    {fmt(t)}
+                </text>
+            );
+        } else if (align === "center") {
+            return (
+                <text
+                    className="tick-label"
+                    key={`label-${t}`}
+                    style={textStyle}
+                    y={isTop ? -this.props.tickSize - 3 : this.props.tickSize + 3}
+                    alignmentBaseline={isTop ? "baseline" : "hanging"}
+                    textAnchor="middle">
+                    {fmt(t)}
+                </text>
+            );
+        } else {
+            return (
+                <g />
+            )
+        }
+    },
+
+    renderVerticalTick(i, t, x, fmt, isTop) {
+        const { tickSize, tickExtend } = this.props;
+        const dir = isTop ? -1 : 1;
 
         const line = {
             x1: 0,
@@ -42,17 +76,9 @@ export default React.createClass({
                 <line
                     className="tick-mark"
                     key={`tick-${t}`}
-                    style={{stroke: "#AAA", strokeWidth: 0.5}}
+                    style={{stroke: "#AAA", strokeWidth: 1}}
                     {...line} />
-                <text
-                    className="tick-label"
-                    key={`label-${t}`}
-                    style={textStyle}
-                    y={isTop ? -this.props.tickSize - 3 : this.props.tickSize + 3}
-                    alignmentBaseline={isTop ? "baseline" : "hanging"}
-                    textAnchor="middle">
-                    {fmt(t)}
-                </text>
+                {this.renderLabel(this.props.labelAlign, t, fmt)}
             </g>
         );
     },

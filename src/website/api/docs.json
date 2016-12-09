@@ -192,6 +192,30 @@
     "displayName": "Tick",
     "methods": [
       {
+        "name": "renderLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "align",
+            "type": null
+          },
+          {
+            "name": "t",
+            "type": null
+          },
+          {
+            "name": "fmt",
+            "type": null
+          },
+          {
+            "name": "isTop",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "renderVerticalTick",
         "docblock": null,
         "modifiers": [],
@@ -248,5 +272,193 @@
         "returns": null
       }
     ]
+  },
+  "src/components/TimeAxis.js": {
+    "description": "A basic Axis component rendered into SVG. The component can be aligned using the\n`position` prop, to display it above, below, left or right of a chart or other\nvisualization. Scaling of the axis is done with the `min` and `max` props. The scale\ntype can be \"linear\" or \"log\", controlled with the `type` prop.\n\nOverall size of the SVG component is done with `width` and `height`. You can also control\nthe number of ticks with `tickCount` (for linear scales), the size of the ticks with\n`tickSize`.",
+    "displayName": "TimeAxis",
+    "methods": [
+      {
+        "name": "renderAxisLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderAxisLine",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderAxisTicks",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "renderAxis",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "align": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"center\"",
+              "computed": false
+            },
+            {
+              "value": "\"left\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The label to render."
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the rectangle to render into.",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height of the rectangle to render into.",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "type": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "\"linear\"",
+              "computed": false
+            },
+            {
+              "value": "\"log\"",
+              "computed": false
+            },
+            {
+              "value": "\"power\"",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "The type of the scale: \"linear\", \"log\" or \"power\".",
+        "defaultValue": {
+          "value": "\"linear\"",
+          "computed": false
+        }
+      },
+      "exponent": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The exponent if a power scale is used.",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "format": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The d3 format for the tick labels. The default it to\ncompute this automatically from the scale."
+      },
+      "absolute": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Apply abs(value) to all values.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "tickSize": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The size of each tick mark.",
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "tickExtend": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Extend the tick marks away from the tick label\nby this amount. This can be used to provide a grid\nline for each tick.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "tickCount": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "margin": {
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "standalone": {
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "labelPosition": {
+        "defaultValue": {
+          "value": "50",
+          "computed": false
+        }
+      },
+      "labelStyle": {
+        "defaultValue": {
+          "value": "{\n    fill: \"grey\",\n    stroke: \"none\",\n    pointerEvents: \"none\"\n}",
+          "computed": false
+        }
+      }
+    }
   }
 }

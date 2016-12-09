@@ -30,7 +30,8 @@ export default React.createClass({
         const exampleName = this.props.params.example;
         const ExampleMetaData = Meta[exampleName];
         const Component = Examples[exampleName];
-        const docs = Examples[`${exampleName}_docs`];
+        const uri = Examples[`${exampleName}_docs`];
+        const docs = window.atob(uri.split(",")[1]);
 
         return (
             <div>

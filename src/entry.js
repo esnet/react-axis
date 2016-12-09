@@ -9,3 +9,4 @@
  */
 
 export Axis from "./components/Axis";
+export TimeAxis from "./components/TimeAxis";

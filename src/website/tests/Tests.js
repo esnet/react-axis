@@ -14,10 +14,9 @@ import Tick1 from "../../test_components/Tick1";
 
 const NUM_TESTS = 10;
 
-const svgBorder = {
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "#f3f3f3"
+const svgStyle = {
+    background: "#f3f3f3",
+    margin: 10
 };
 
 export default React.createClass({
@@ -25,9 +24,9 @@ export default React.createClass({
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <h2>Tick tests</h2>
+                    <h2>Tick - Bottom</h2>
                     
-                    {[...Array(NUM_TESTS)].map((_ ,i) => (
+                    {[0, 1, 2, 3, 4].map((_ ,i) => (
                         <div key={i}>
                             <table>
                                 <tbody>
@@ -36,7 +35,7 @@ export default React.createClass({
                                         {`Tick test ${i}`}
                                     </td>
                                     <td style={{paddingLeft: 20}}>
-                                        <svg style={svgBorder} height="40px">
+                                        <svg style={svgStyle} height="40px">
                                             <Tick1 test={i}/>
                                         </svg>
                                     </td>
@@ -47,6 +46,68 @@ export default React.createClass({
                         </div>
                     ))}
                     <hr />
+                </div>
+                <div className="col-md-12">
+                    <h2>Tick - Top</h2>
+                    
+                    {[5, 6, 7, 8, 9].map(i => (
+                        <div key={i}>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        {`Tick test ${i}`}
+                                    </td>
+                                    <td style={{paddingLeft: 20}}>
+                                        <svg style={svgStyle} height="40px">
+                                            <Tick1 test={i}/>
+                                        </svg>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    ))}
+                    <hr />
+                </div>
+
+                <div className="col-md-12">
+                    <h2>Tick - Left</h2>
+                    
+                    <table>
+                        <tbody>
+                        <tr>
+                            {[10, 11].map(i => (
+                                <td key={i}>
+                                    <svg style={svgStyle} height="100px" width="40px">
+                                        <Tick1 test={i}/>
+                                    </svg>
+                                </td>
+                            ))}
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div className="col-md-12">
+                    <h2>Tick - Right</h2>
+                    
+                    <table>
+                        <tbody>
+                        <tr>
+                            {[12, 13].map(i => (
+                                <td key={i}>
+                                    <svg style={svgStyle} height="100px" width="40px">
+                                        <Tick1 test={i}/>
+                                    </svg>
+                                </td>
+                            ))}
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         );

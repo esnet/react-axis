@@ -1,8 +1,26 @@
 # React Axis
 
-An axis widget intended to replace generated D3 SVG with a React friendly component. Under the hood, it still uses D3's scales and format, but rendering and animation is done with React.
+An axis widget intended to replace generated D3 SVG with a React friendly component that supports timezones correctly.
 
-This is a very minimal version of the functionality needed for a full charting app, but it's a start. We will be merging this into react-timeseries-charts. Once that happens we'll bump this to v1.0.
+Under the hood, it uses:
+    * d3.scale and d3.format
+    * moment.js and moment-timezone
+
+SVG rendering is done with React.
+
+This is a basic version of the functionality needed for a full charting application, but it's a start. It currently supports:
+
+ * A general purpose `Axis` component
+     - Supports log, power and linear scales
+     - Supports animation between scales
+     - Can be positioned in different ways
+
+ * A more specific `TimeAxis` component
+     - Supports arbitrary timezones
+     - Supports animations between scales
+     - Flexible support for tick formatting
+
+We will be making use of this project in [react-timeseries-charts](http://software.es.net/react-timeseries-charts). Once that happens we'll bump this to v1.0.
 
 Getting started
 ---------------
@@ -13,18 +31,42 @@ To install:
 
     npm install react-axis --save
 
+You can then import and use either the Axis or TimeAxis. In general the component is designed to be rendered within existing SVG (though it has a stand alone mode too):
+
+```js
+    import { TimeAxis } from "react-axis";
+```
+
+```js
+    render() {
+        ...
+        return (
+            <svg>
+                ...
+                <TimeAxis
+                    timezone="America/Chicago"
+                    position="bottom"
+                    beginTime={beginTime}
+                    endTime={endTime}
+                    width={800} height={50}
+                />
+            </svg>
+        );
+    }
+```
+
 Developing
 ----------
 
-The repo contains the examples website. This is very helpful in developing new functionality. Within a cloned repo, you first need to run:
+The repo contains the examples/ website. This is very helpful in developing new functionality. Within a cloned repo, you first need to run:
 
-    npm install
+    yarn install
 
-This will install the development dependencies into your node_modules directory.
+This will install the development dependencies into your node_modules/ directory.
 
 You can then start up the test server, as well as automatic source building, by doing:
 
-    npm run start-website
+    yarn run start-website
 
 License
 -------

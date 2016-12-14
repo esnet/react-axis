@@ -10,11 +10,33 @@
 
 import React from "react";
 
+/**
+ * Builds an axis tick mark with associated label
+ */
 export default React.createClass({
 
     displayName: "Tick",
 
-    renderLabel(align, t, fmt, isTop) {
+    getDefaultProps() {
+        return {
+            position: 0,
+            size: 15,
+            align: "bottom",
+            labelAlign: "adjacent",
+            tickSize: 15,
+            tickExtend: 0,
+            transitionTime: 200
+        };
+    },
+
+    /**
+     *   ___________   or __________
+     *       |                |label
+     *     label
+     */
+    renderLabel(label, isTop, tickSize) {
+
+        const { labelAlign } = this.props;
 
         const textStyle = {
             fontSize: 11,
@@ -23,29 +45,36 @@ export default React.createClass({
             pointerEvents: "none"
         };
 
-        if (align === "adjacent") {
+        const baseLine = isTop ? "baseline" : "hanging";
+
+        if (labelAlign === "adjacent") {
+            const x = 2;
+            const y = isTop ? - tickSize + 8 : tickSize - 8;
             return (
                 <text
                     className="tick-label"
-                    key={`label-${t}`}
+                    key={`label-${label}`}
+                    textAnchor="left"
                     style={textStyle}
-                    y={5}
-                    x={2}
-                    alignmentBaseline={isTop ? "baseline" : "hanging"}
-                    textAnchor="left">
-                    {fmt(t)}
+                    x={x}
+                    y={y}
+                    alignmentBaseline={baseLine}>
+                    {label}
                 </text>
             );
-        } else if (align === "center") {
+        } else if (labelAlign === "center") {
+            const x = 0;
+            const y = isTop ? -tickSize - 3 : tickSize + 3;
             return (
                 <text
                     className="tick-label"
-                    key={`label-${t}`}
+                    key={`label-${label}`}
                     style={textStyle}
-                    y={isTop ? -this.props.tickSize - 3 : this.props.tickSize + 3}
-                    alignmentBaseline={isTop ? "baseline" : "hanging"}
-                    textAnchor="middle">
-                    {fmt(t)}
+                    textAnchor="middle"
+                    x={x}
+                    y={y}
+                    alignmentBaseline={baseLine}>
+                    {label}
                 </text>
             );
         } else {
@@ -55,45 +84,48 @@ export default React.createClass({
         }
     },
 
-    renderVerticalTick(i, t, x, fmt, isTop) {
-        const { tickSize, tickExtend } = this.props;
+    renderVerticalTick(i, label, labelPosition, size, extend, isTop) {
         const dir = isTop ? -1 : 1;
-
         const line = {
             x1: 0,
-            y1: -dir * tickExtend,
+            y1: - dir * extend,
             x2: 0,
-            y2: dir * tickSize,
+            y2: dir * size,
         };
+
+        const style = {stroke: "#AAA", strokeWidth: 1};
+        const groupKey = `grp-${i}}`;
+        const tickKey = `tick-${i}`;
 
         return (
             <g
                 className="tick-grp"
-                style={{
-                    transform: `translate(${x}px, ${isTop ? this.props.height : 0}px)`
-                }}
-                key={`marker-${fmt(t)}`}>
+                key={groupKey}>
                 <line
-                    className="tick-mark"
-                    key={`tick-${t}`}
-                    style={{stroke: "#AAA", strokeWidth: 1}}
-                    {...line} />
-                {this.renderLabel(this.props.labelAlign, t, fmt)}
+                    key={tickKey}
+                    className="tick-line"
+                    style={style}
+                    {...line}
+                />
+                {this.renderLabel(label, isTop, size)}
             </g>
         );
     },
 
     renderHorizontalTick(i, t, y, fmt, isLeft) {
-        const { tickSize, tickExtend } = this.props;
-        const dir = isLeft ? -1 : 1;
-
-        const textStyle = {
+        const {
+            tickSize,
+            tickExtend
+        } = this.props;
+        
+        const textStyle = this.props.style || {
             fontSize: 11,
             textAnchor: "left",
             fill: "#b0b0b0",
             pointerEvents: "none"
         };
 
+        const dir = isLeft ? -1 : 1;
         const line = {
             x1: -dir * tickExtend,
             y1: 0,
@@ -128,19 +160,28 @@ export default React.createClass({
 
     render() {
         const {
-            tickFormat,
-            tickValue,
-            tickPosition,
-            tickIndex,
-            align
+            index,
+            label,
+            height,
+            position,
+            size = 10,
+            extend = 0,
+            align = "top",
+            transitionTime
         } = this.props;
 
         if (align === "top" || align === "bottom") {
-            return this.renderVerticalTick(
-                tickIndex, tickValue, tickPosition, tickFormat, align === "top");
+            const transform = `translate(${position}px, ${align === "top" ? height : 0}px)`;
+            const transition = `transform ${transitionTime}ms`;
+            return (
+                <g className="tick-grp" style={{transform, transition}}>
+                    {this.renderVerticalTick(index, label, position, size, extend, align === "top")}
+                </g>
+            );
         } else {
             return this.renderHorizontalTick(
-                tickIndex, tickValue, tickPosition, tickFormat, align === "left");
+                index, label, position, align === "left"
+            );
         }
     }
 });

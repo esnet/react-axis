@@ -12,6 +12,8 @@ import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { scaleTime } from "d3-scale";
 const moment = require("moment");
+import _ from "underscore";
+
 require("moment-timezone");
 
 import Tick from "./Tick";
@@ -59,16 +61,34 @@ const tickIntervals = [
     [      durationYear  ,   "year",  1]
 ];
 
-
 /**
- * A basic Axis component rendered into SVG. The component can be aligned using the
- * `position` prop, to display it above, below, left or right of a chart or other
- * visualization. Scaling of the axis is done with the `min` and `max` props. The scale
- * type can be "linear" or "log", controlled with the `type` prop.
+ * A TimeAxis component rendered into SVG. The component can be aligned using the
+ * `position` prop to the top or bottom.
  *
- * Overall size of the SVG component is done with `width` and `height`. You can also control
- * the number of ticks with `tickCount` (for linear scales), the size of the ticks with
- * `tickSize`.
+ * Scaling of the axis is done with the `beginTime` and `endTime` props. These
+ * are Javascript Date objects.
+ *
+ * Overall size of the SVG component is done with `width` and `height`.
+ *
+ * The `TimeAxis` has support for rendering in any timezone using the `timezone`
+ * props. It defaults to local time.
+ *
+ * For example:
+ * ```
+ *  <TimeAxis
+ *      beginTime={beginTime}
+ *      endTime={endTime}
+ *      timezone="America/Chicago"
+ *      position="bottom"
+ *      width={800}
+ *      height={50}
+ *  />
+ * ```
+ *
+ * The format of the axis labels has an appropiate default. However, you
+ * can use the `format` props to gain additional control, either with
+ * some built in formats or by supplying a function.
+ *
  */
 export default React.createClass({
 
@@ -79,11 +99,10 @@ export default React.createClass({
             width: 100,
             height: 100,
             tickCount: 10,
-            tickSize: 5,
+            tickMajor: 20,
+            tickMinor: 14,
             tickExtend: 0,
             margin: 10,
-            type: "linear",
-            exponent: 2,
             standalone: false,
             labelPosition: 50,
             labelStyle: {
@@ -100,7 +119,7 @@ export default React.createClass({
         align: React.PropTypes.oneOf(["center", "left"]),
 
         /**
-         * The label to render.
+         * The title of the axis to render.
          */
         label: React.PropTypes.string,
 
@@ -115,30 +134,47 @@ export default React.createClass({
         height: React.PropTypes.number,
 
         /**
-         * The type of the scale: "linear", "log" or "power".
+         * The format for the tick labels.
+         *
+         * The default it to compute this automatically. You can also specify this
+         * as a string or function.
+         *
+         * Six special options exist, specified as a string: setting format to "second",
+         * "hour", "day", "month" or "year" will show only ticks on those, and every one
+         * of those intervals.
+         *
+         * For example maybe you are showing a bar chart for October 2014 then setting
+         * the format to "day" will insure that a label is placed for each and every day,
+         * all 31 of them. Be careful though, it's easy to add too many labels this way.
+         *
+         * The last string option is "relative". This interprets the time as a duration. This
+         * is good for data that is specified relative to its start time, rather than
+         * as an actual date/time.
+         *
+         * Finally, format can also be a function. The function will be passed the date
+         * it is rendering. It expects the return result to be a string.
          */
-        type: React.PropTypes.oneOf(["linear", "log", "power"]),
+        format: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf([
+                "second",
+                "minute",
+                "day",
+                "month",
+                "year",
+                "relative"
+            ]),
+            React.PropTypes.func
+        ]),
 
         /**
-         * The exponent if a power scale is used.
+         * The size of each minor tick mark.
          */
-        exponent: React.PropTypes.number,
+        tickMinor: React.PropTypes.number,
 
         /**
-         * The d3 format for the tick labels. The default it to
-         * compute this automatically from the scale.
+         * The size of each major tick mark.
          */
-        format: React.PropTypes.string,
-
-        /**
-         * Apply abs(value) to all values.
-         */
-        absolute: React.PropTypes.bool,
-
-        /**
-         * The size of each tick mark.
-         */
-        tickSize: React.PropTypes.number,
+        tickMajor: React.PropTypes.number,
 
         /**
          * Extend the tick marks away from the tick label
@@ -206,18 +242,17 @@ export default React.createClass({
 
         const scale = scaleTime()
             .domain([this.props.beginTime, this.props.endTime])
-            .range([0, this.props.width - this.props.margin * 2]);
+            .range([this.props.margin, this.props.width - this.props.margin * 2]);
        
         const start = +this.props.beginTime;
         const stop = +this.props.endTime;
         const target = Math.abs(stop - start) / interval;
 
-        let type, num; //, duration;
+        let type, num;
         for (const [d, t, n] of tickIntervals) {
             if (target < d) break;
             type = t;
             num = n;
-            //duration = d;
         }
         
         const majors = {
@@ -230,49 +265,65 @@ export default React.createClass({
             "year": "year"
         };
 
-        const formatter = function(v) {
+        const defaultFormatter = function(v) {
+            let isMajor = false;
             let t = type;
-            if (moment(v).tz(TZ).startOf(majors[type]).isSame(moment(v).tz(TZ))) {
+            if (moment(v)
+                .tz(TZ)
+                .startOf(majors[type])
+                .isSame(moment(v).tz(TZ))) {
                 t = majors[type];
+                isMajor = true;
             }
-            return moment(v).tz(TZ).format(formatterMap[t])
+            return {
+                label: moment(v).tz(TZ).format(formatterMap[t]),
+                size: isMajor ? 20 : 15,
+                labelAlign: isMajor ? "center" : "adjacent"
+            }
+        }
+        
+        let formatter = this.props.format || defaultFormatter;
+        if (_.isString(formatter)) {
+            type = formatter;
+            num = 1;
+            formatter = (v) => moment(v).tz(TZ).format(formatterMap[type])
         }
 
-        
         const starttz = moment(start).tz(TZ);
         const stoptz = moment(stop).tz(TZ);
+
+        // We want to align our minor ticks to our major ones.
+        // For instance if we are showing 3 hour minor ticks then we
+        // want to them to be 12am, 3am, etc (not 11pm, 2am, etc)
         const startd = starttz.startOf(majors[type]).add(num, "type");
-        const stopd = stoptz.startOf(type);
+        const stopd = stoptz.endOf(type);
 
+        let i = 0;
         let d = startd;
-        let tickIndex = 0;
         let ticks = [];
-
         while (d.isBefore(stopd)) {
-            d = d.add(num, type);
-            const tickValue = d.toDate();
-            const tickPosition = scale(tickValue);
-            if (d > start && d < stop) {
-                const tickSize =
-                    moment(d).tz(TZ).startOf(majors[type]).isSame(moment(d).tz(TZ)) ? 20 : 15;
-
+            const date = d.toDate();
+            const pos = scale(date);
+            const { label, size, labelAlign } = formatter(date);
+            if (d >= start && d < stop) {
                 ticks.push(
                     <Tick
                         key={+d}
                         align={this.props.position}
-                        tickFormat={formatter}
-                        tickValue={tickValue}
-                        tickPosition={tickPosition}
-                        tickIndex={tickIndex}
-                        tickSize={tickSize}
-                        tickExtend={this.props.tickExtend}
-                        labelAlign="adjacent"
+                        label={label}
+                        size={size}
+                        position={pos}
+                        index={i}
+                        extend={this.props.tickExtend}
+                        labelAlign={labelAlign}
                         width={this.props.width}
                         height={this.props.height} />
                 );
             }
 
-            tickIndex++;
+            d = d.add(num, type);
+
+            i++;
         }
         return ticks;
     },
@@ -281,7 +332,11 @@ export default React.createClass({
         return (
             <g>
                 {this.renderAxisLine()}
-                <ReactCSSTransitionGroup component="g" transitionName="ticks" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+                <ReactCSSTransitionGroup
+                    component="g"
+                    transitionName="ticks"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}>
                     {this.renderAxisTicks()}
                 </ReactCSSTransitionGroup>
                 {this.renderAxisLabel()}

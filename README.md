@@ -67,6 +67,10 @@ You can then start up the test server, as well as automatic source building, by 
 
     yarn run start-website
 
+There is also a growing set of Jest tests, both for the components and utility code. To run, use:
+
+    yarn test
+
 License
 -------
 

@@ -139,20 +139,37 @@ export default React.createClass({
          * The default it to compute this automatically. You can also specify this
          * as a string or function.
          *
-         * Six special options exist, specified as a string: setting format to "second",
-         * "hour", "day", "month" or "year" will show only ticks on those, and every one
-         * of those intervals.
+         * Six special options exist, specified as a string: setting format to:
+         *  * "second",
+         *  * "hour"
+         *  * "day"
+         *  * "month"
+         *  * "year"
+         *
+         * will show only ticks on those, and every one of those intervals.
          *
          * For example maybe you are showing a bar chart for October 2014 then setting
          * the format to "day" will insure that a label is placed for each and every day,
          * all 31 of them. Be careful though, it's easy to add too many labels this way.
          *
-         * The last string option is "relative". This interprets the time as a duration. This
-         * is good for data that is specified relative to its start time, rather than
+         * The last string option is:
+         *  * "relative".
+         *
+         * This interprets the time as a duration. This is good for data that is
+         * specified relative to its start time, rather than
          * as an actual date/time.
          *
          * Finally, format can also be a function. The function will be passed the date
-         * it is rendering. It expects the return result to be a string.
+         * it is rendering. It expects the return result to be a an object describing
+         * the resulting tick. For example:
+         *
+         * ```js
+         *     format = (d) => ({
+         *         label: moment(d).format(h:mm a),
+         *         size: 15,
+         *         labelAlign: "adjacent"
+         *     });
+         * ```
          */
         format: React.PropTypes.oneOfType([
             React.PropTypes.oneOf([
@@ -286,7 +303,11 @@ export default React.createClass({
         if (_.isString(formatter)) {
             type = formatter;
             num = 1;
-            formatter = (v) => moment(v).tz(TZ).format(formatterMap[type])
+            formatter = (v) => ({
+                label: moment(v).tz(TZ).format(formatterMap[type]),
+                size: 15,
+                labelAlign: "adjacent"
+            });
         }
 
         const starttz = moment(start).tz(TZ);

@@ -24,8 +24,6 @@ export default ({ test }) => {
 
     ];
 
-    const { label, position, labelAlign, size, align, width, height } = tests[test];
-
     return (
         <Tick
             key="key"

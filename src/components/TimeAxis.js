@@ -277,8 +277,8 @@ export default React.createClass({
             }
             return {
                 label: moment(v).tz(TZ).format(formatterMap[t]),
-                size: isMajor ? 20 : 15,
-                labelAlign: isMajor ? "center" : "adjacent"
+                size: isMajor ? 25 : 15,
+                labelAlign: "adjacent"
             }
         }
         
@@ -309,11 +309,11 @@ export default React.createClass({
                 ticks.push(
                     <Tick
                         key={+d}
+                        id={i}
                         align={this.props.position}
                         label={label}
                         size={size}
                         position={pos}
-                        index={i}
                         extend={this.props.tickExtend}
                         labelAlign={labelAlign}
                         width={this.props.width}

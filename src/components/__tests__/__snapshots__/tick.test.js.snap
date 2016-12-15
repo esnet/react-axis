@@ -120,7 +120,7 @@ exports[`test Basic Tick with label 1.2 1`] = `
       }
       textAnchor="left"
       x={2}
-      y={7}>
+      y={6}>
       1.2
     </text>
   </g>
@@ -206,7 +206,7 @@ exports[`test Tick with position changed to 50px across 1`] = `
       }
       textAnchor="left"
       x={2}
-      y={7}>
+      y={6}>
       1.4
     </text>
   </g>
@@ -335,7 +335,7 @@ exports[`test Top aligned Tick with label 1.2 1`] = `
       }
       textAnchor="left"
       x={2}
-      y={7}>
+      y={6}>
       1.2
     </text>
   </g>
@@ -421,7 +421,7 @@ exports[`test Top aligned Tick with position changed to 50px across 1`] = `
       }
       textAnchor="left"
       x={2}
-      y={7}>
+      y={6}>
       1.4
     </text>
   </g>

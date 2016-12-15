@@ -111,7 +111,7 @@ const time = React.createClass({
                 <hr />
 
                 <div className="col-md-2">
-                    Australia/Perth
+                    Australia/Adelaide
                 </div>
                 <div className="col-md-10" style={rowStyle}>
                     <TimeAxis

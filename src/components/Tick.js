@@ -24,8 +24,8 @@ export default React.createClass({
             align: "bottom",
             labelAlign: "adjacent",
             tickSize: 15,
-            tickExtend: 0,
-            transitionTime: 200
+            tickExtend: 0
+            //transitionTime: 200
         };
     },
 
@@ -49,7 +49,7 @@ export default React.createClass({
 
         if (labelAlign === "adjacent") {
             const x = 2;
-            const y = isTop ? - tickSize + 8 : tickSize - 8;
+            const y = isTop ? -6 : 6;
             return (
                 <text
                     key={`label-${label}`}
@@ -80,7 +80,7 @@ export default React.createClass({
         }
     },
 
-    renderVerticalTick(label, labelPosition, size, extend, isTop) {
+    renderVerticalTick(id, label, labelPosition, size, extend, isTop) {
         const dir = isTop ? -1 : 1;
         const line = {
             x1: 0,
@@ -90,8 +90,8 @@ export default React.createClass({
         };
 
         const style = {stroke: "#AAA", strokeWidth: 1};
-        const groupKey = `grp-${label}}`;
-        const tickKey = `tick-${label}`;
+        const groupKey = `grp-${id}}`;
+        const tickKey = `tick-${id}`;
 
         return (
             <g
@@ -108,7 +108,7 @@ export default React.createClass({
         );
     },
 
-    renderHorizontalTick(label, labelPosition, size, extend, isLeft) {
+    renderHorizontalTick(id, label, labelPosition, size, extend, isLeft) {
         const dir = isLeft ? -1 : 1;
         const line = {
             x1: -dir * extend,
@@ -124,8 +124,8 @@ export default React.createClass({
             pointerEvents: "none"
         };
         const style = {stroke: "#AAA", strokeWidth: 1};
-        const groupKey = `grp-${label}}`;
-        const tickKey = `tick-${label}`;
+        const groupKey = `grp-${id}}`;
+        const tickKey = `tick-${id}`;
 
         return (
             <g
@@ -153,30 +153,31 @@ export default React.createClass({
 
     render() {
         const {
+            id,
             label,
             width,
             height,
             position,
             size = 10,
             extend = 0,
-            align = "top",
-            transitionTime
+            align = "top"
+            //transitionTime
         } = this.props;
 
         if (align === "top" || align === "bottom") {
             const transform = `translate(${position}px, ${align === "top" ? height : 0}px)`;
-            const transition = `transform ${transitionTime}ms`;
+            //const transition = `transform ${transitionTime}ms`;
             return (
-                <g className="tick-grp" style={{transform, transition}}>
-                    {this.renderVerticalTick(label, position, size, extend, align === "top")}
+                <g className="tick-grp" style={{transform}}>
+                    {this.renderVerticalTick(id, label, position, size, extend, align === "top")}
                 </g>
             );
         } else {
             const transform = `translate(${align === "left" ? width : 0}px,${position}px)`;
-            const transition = `transform ${transitionTime}ms`;
+            //const transition = `transform ${transitionTime}ms`;
             return (
-                <g className="tick-grp" style={{transform, transition}}>
-                    {this.renderHorizontalTick(label, position, size, extend, align === "left")}
+                <g className="tick-grp" style={{transform}}>
+                    {this.renderHorizontalTick(id, label, position, size, extend, align === "left")}
                 </g>
             );
         }

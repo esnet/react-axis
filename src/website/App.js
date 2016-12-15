@@ -54,7 +54,7 @@ class App extends Component {
 
                     <ul className="nav nav-sidebar">
                         <li><Link to="/example/basic">Basic example</Link></li>
-                        <li><Link to="/example/time">Time Axis example</Link></li>
+                        <li><Link to="/example/time">Timezone example</Link></li>
                     </ul>
 
                     <div className="sidebar-heading">API</div>

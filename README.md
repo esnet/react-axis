@@ -67,9 +67,15 @@ You can then start up the test server, as well as automatic source building, by 
 
     yarn run start-website
 
-There is also a growing set of Jest tests, both for the components and utility code. To run, use:
+There is also a growing set of Jest tests, both for the components and utility code. The testing uses Jest's snapshot mechanism. To run, use:
 
     yarn test
+
+Visual materialization of the test examples can be accessed on the examples website at:
+
+    http://localhost:3000/#/tests
+
+This setup is a work in progress.
 
 License
 -------

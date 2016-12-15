@@ -215,19 +215,19 @@ export default React.createClass({
             // The user can specify the values all be positive
             const absolute = this.props.absolute;
 
-            const tickFormat = d =>
+            const formatter = d =>
                 absolute ? d3Format(Math.abs(d)) : d3Format(d);
+            const label = formatter(tickValue);
 
             return (
                 <Tick
                     key={tickValue}
                     align={this.props.position}
-                    tickFormat={tickFormat}
-                    tickValue={tickValue}
-                    tickPosition={tickPosition}
-                    tickIndex={tickIndex}
-                    tickSize={this.props.tickSize}
-                    tickExtend={this.props.tickExtend}
+                    label={label}
+                    labelAlign="center"
+                    position={tickPosition}
+                    size={this.props.tickSize}
+                    extend={this.props.tickExtend}
                     width={this.props.width}
                     height={this.props.height} />
             );

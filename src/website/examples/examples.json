@@ -5,8 +5,8 @@
         "tags": ["Axis"]
     },
     "time": {
-        "title": "Time axis",
-        "description": "Time axis example.",
+        "title": "Timezones",
+        "description": "Time axis with timezone support.",
         "tags": ["TimeAxis"]
     }
 }

@@ -9,10 +9,7 @@
  */
 
 import React from "react";
-import Tick from "../../components/Tick";
 import Tick1 from "../../test_components/Tick1";
-
-const NUM_TESTS = 10;
 
 const svgStyle = {
     background: "#f3f3f3",

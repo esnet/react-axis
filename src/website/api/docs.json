@@ -188,32 +188,26 @@
     }
   },
   "src/components/Tick.js": {
-    "description": "",
+    "description": "Builds an axis tick mark with associated label",
     "displayName": "Tick",
     "methods": [
       {
         "name": "renderLabel",
-        "docblock": null,
+        "docblock": "___________   or __________\n      |                |label\n    label",
         "modifiers": [],
         "params": [
           {
-            "name": "align",
-            "type": null
+            "name": "label"
           },
           {
-            "name": "t",
-            "type": null
+            "name": "isTop"
           },
           {
-            "name": "fmt",
-            "type": null
-          },
-          {
-            "name": "isTop",
-            "type": null
+            "name": "tickSize"
           }
         ],
-        "returns": null
+        "returns": null,
+        "description": "___________   or __________\n      |                |label\n    label"
       },
       {
         "name": "renderVerticalTick",
@@ -221,19 +215,23 @@
         "modifiers": [],
         "params": [
           {
-            "name": "i",
+            "name": "id",
             "type": null
           },
           {
-            "name": "t",
+            "name": "label",
             "type": null
           },
           {
-            "name": "x",
+            "name": "labelPosition",
             "type": null
           },
           {
-            "name": "fmt",
+            "name": "size",
+            "type": null
+          },
+          {
+            "name": "extend",
             "type": null
           },
           {
@@ -249,19 +247,23 @@
         "modifiers": [],
         "params": [
           {
-            "name": "i",
+            "name": "id",
             "type": null
           },
           {
-            "name": "t",
+            "name": "label",
             "type": null
           },
           {
-            "name": "y",
+            "name": "labelPosition",
             "type": null
           },
           {
-            "name": "fmt",
+            "name": "size",
+            "type": null
+          },
+          {
+            "name": "extend",
             "type": null
           },
           {
@@ -271,10 +273,48 @@
         ],
         "returns": null
       }
-    ]
+    ],
+    "props": {
+      "position": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "size": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "align": {
+        "defaultValue": {
+          "value": "\"bottom\"",
+          "computed": false
+        }
+      },
+      "labelAlign": {
+        "defaultValue": {
+          "value": "\"adjacent\"",
+          "computed": false
+        }
+      },
+      "tickSize": {
+        "defaultValue": {
+          "value": "15",
+          "computed": false
+        }
+      },
+      "tickExtend": {
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      }
+    }
   },
   "src/components/TimeAxis.js": {
-    "description": "A basic Axis component rendered into SVG. The component can be aligned using the\n`position` prop, to display it above, below, left or right of a chart or other\nvisualization. Scaling of the axis is done with the `min` and `max` props. The scale\ntype can be \"linear\" or \"log\", controlled with the `type` prop.\n\nOverall size of the SVG component is done with `width` and `height`. You can also control\nthe number of ticks with `tickCount` (for linear scales), the size of the ticks with\n`tickSize`.",
+    "description": "A TimeAxis component rendered into SVG. The component can be aligned using the\n`position` prop to the top or bottom.\n\nScaling of the axis is done with the `beginTime` and `endTime` props. These\nare Javascript Date objects.\n\nOverall size of the SVG component is done with `width` and `height`.\n\nThe `TimeAxis` has support for rendering in any timezone using the `timezone`\nprops. It defaults to local time.\n\nFor example:\n```\n <TimeAxis\n     beginTime={beginTime}\n     endTime={endTime}\n     timezone=\"America/Chicago\"\n     position=\"bottom\"\n     width={800}\n     height={50}\n />\n```\n\nThe format of the axis labels has an appropiate default. However, you\ncan use the `format` props to gain additional control, either with\nsome built in formats or by supplying a function.",
     "displayName": "TimeAxis",
     "methods": [
       {
@@ -329,7 +369,7 @@
           "name": "string"
         },
         "required": false,
-        "description": "The label to render."
+        "description": "The title of the axis to render."
       },
       "width": {
         "type": {
@@ -353,68 +393,66 @@
           "computed": false
         }
       },
-      "type": {
+      "format": {
         "type": {
-          "name": "enum",
+          "name": "union",
           "value": [
             {
-              "value": "\"linear\"",
-              "computed": false
+              "name": "enum",
+              "value": [
+                {
+                  "value": "\"second\"",
+                  "computed": false
+                },
+                {
+                  "value": "\"minute\"",
+                  "computed": false
+                },
+                {
+                  "value": "\"day\"",
+                  "computed": false
+                },
+                {
+                  "value": "\"month\"",
+                  "computed": false
+                },
+                {
+                  "value": "\"year\"",
+                  "computed": false
+                },
+                {
+                  "value": "\"relative\"",
+                  "computed": false
+                }
+              ]
             },
             {
-              "value": "\"log\"",
-              "computed": false
-            },
-            {
-              "value": "\"power\"",
-              "computed": false
+              "name": "func"
             }
           ]
         },
         "required": false,
-        "description": "The type of the scale: \"linear\", \"log\" or \"power\".",
-        "defaultValue": {
-          "value": "\"linear\"",
-          "computed": false
-        }
+        "description": "The format for the tick labels.\n\nThe default it to compute this automatically. You can also specify this\nas a string or function.\n\nSix special options exist, specified as a string: setting format to \"second\",\n\"hour\", \"day\", \"month\" or \"year\" will show only ticks on those, and every one\nof those intervals.\n\nFor example maybe you are showing a bar chart for October 2014 then setting\nthe format to \"day\" will insure that a label is placed for each and every day,\nall 31 of them. Be careful though, it's easy to add too many labels this way.\n\nThe last string option is \"relative\". This interprets the time as a duration. This\nis good for data that is specified relative to its start time, rather than\nas an actual date/time.\n\nFinally, format can also be a function. The function will be passed the date\nit is rendering. It expects the return result to be a string."
       },
-      "exponent": {
+      "tickMinor": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "The exponent if a power scale is used.",
+        "description": "The size of each minor tick mark.",
         "defaultValue": {
-          "value": "2",
+          "value": "14",
           "computed": false
         }
       },
-      "format": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "The d3 format for the tick labels. The default it to\ncompute this automatically from the scale."
-      },
-      "absolute": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "Apply abs(value) to all values.",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      },
-      "tickSize": {
+      "tickMajor": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "The size of each tick mark.",
+        "description": "The size of each major tick mark.",
         "defaultValue": {
-          "value": "5",
+          "value": "20",
           "computed": false
         }
       },
@@ -456,6 +494,12 @@
       "labelStyle": {
         "defaultValue": {
           "value": "{\n    fill: \"grey\",\n    stroke: \"none\",\n    pointerEvents: \"none\"\n}",
+          "computed": false
+        }
+      },
+      "absolute": {
+        "defaultValue": {
+          "value": "false",
           "computed": false
         }
       }

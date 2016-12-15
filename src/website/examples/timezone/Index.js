@@ -31,7 +31,7 @@ const scales = [
     {label: "ytd", begin: (d) => moment(d).startOf("year").toDate()}
 ];
 
-const time = React.createClass({
+const timezone = React.createClass({
 
     getInitialState() {
         return {
@@ -184,6 +184,5 @@ const time = React.createClass({
 });
 
 // Export example
-import time_docs from "./time_docs.md";
-import time_thumbnail from "./time_thumbnail.png";
-export default {time, time_docs, time_thumbnail};
+import timezone_docs from "./timezone_docs.md";
+export default {timezone, timezone_docs};

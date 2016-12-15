@@ -177,7 +177,9 @@ const defaults = {
     template() {
         const settings = this;
         const types = settings.types;
-        const lastType = findLast(types, type => settings.duration._data[type]);
+        const lastType = findLast(types, type => {
+            return settings.duration._data[type]
+        });
 
         // default template strings for each duration dimension type
         switch (lastType) {
@@ -234,7 +236,6 @@ export default function(duration, template, precision) {
 
     // template
     if (_.isFunction(settings.template)) {
-        console.log("####### template is function")
         settings.template = settings.template.apply(settings);
     }
 
@@ -272,15 +273,11 @@ export default function(duration, template, precision) {
     _.each(momentTypes, (momentType, index) => {
         let value, wholeValue, decimalValue, isLeast, isMost;
 
-        console.log("**", index, momentType)
-
         // calculate integer and decimal value portions
         value = remainder.as(momentType);
 
         wholeValue = (value > 0 ? Math.floor(value) : Math.ceil(value));
         decimalValue = value - wholeValue;
-
-        console.log("    value", value, wholeValue, decimalValue);
 
         // is this the least-significant moment token found?
         isLeast = ((index + 1) === momentTypes.length);

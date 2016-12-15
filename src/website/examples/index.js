@@ -13,9 +13,11 @@
 //
 
 import basic from "./basic/Index";
-import time from "./time/Index";
+import timezone from "./timezone/Index";
+import duration from "./duration/Index";
 
 export default {
     ...basic,
-    ...time
+    ...timezone,
+    ...duration
 };

@@ -18,6 +18,7 @@ require("moment-timezone");
 
 import Tick from "./Tick";
 import "./Axis.css";
+import durationFormatter from '../duration-format.js';
 
 const durationSecond = 1000;
 const durationMinute = durationSecond * 60;
@@ -153,11 +154,10 @@ export default React.createClass({
          * all 31 of them. Be careful though, it's easy to add too many labels this way.
          *
          * The last string option is:
-         *  * "relative".
+         *  * "duration".
          *
          * This interprets the time as a duration. This is good for data that is
-         * specified relative to its start time, rather than
-         * as an actual date/time.
+         * specified relative to its start time, rather than as an actual date/time.
          *
          * Finally, format can also be a function. The function will be passed the date
          * it is rendering. It expects the return result to be a an object describing
@@ -178,7 +178,7 @@ export default React.createClass({
                 "day",
                 "month",
                 "year",
-                "relative"
+                "duration"
             ]),
             React.PropTypes.func
         ]),
@@ -285,15 +285,21 @@ export default React.createClass({
         const defaultFormatter = function(v) {
             let isMajor = false;
             let t = type;
-            if (moment(v)
-                .tz(TZ)
+            if (TZ && moment(v).tz(TZ)
                 .startOf(majors[type])
                 .isSame(moment(v).tz(TZ))) {
                 t = majors[type];
                 isMajor = true;
             }
+            if (!TZ && moment(v)
+                .startOf(majors[type])
+                .isSame(moment(v))) {
+                t = majors[type];
+                isMajor = true;
+            }
             return {
-                label: moment(v).tz(TZ).format(formatterMap[t]),
+                label: TZ ? moment(v).tz(TZ).format(formatterMap[t]) :
+                            moment(v).format(formatterMap[t]),
                 size: isMajor ? 25 : 15,
                 labelAlign: "adjacent"
             }
@@ -301,17 +307,25 @@ export default React.createClass({
         
         let formatter = this.props.format || defaultFormatter;
         if (_.isString(formatter)) {
-            type = formatter;
-            num = 1;
-            formatter = (v) => ({
-                label: moment(v).tz(TZ).format(formatterMap[type]),
-                size: 15,
-                labelAlign: "adjacent"
-            });
+            if (formatter === "duration") {
+                formatter = (v) => ({
+                    label: durationFormatter(moment.duration(+v)),
+                    size: 15,
+                    labelAlign: "adjacent"
+                });
+            } else {
+                type = formatter;
+                num = 1;
+                formatter = (v) => ({
+                    label: moment(v).tz(TZ).format(formatterMap[type]),
+                    size: 15,
+                    labelAlign: "adjacent"
+                });
+            }
         }
 
-        const starttz = moment(start).tz(TZ);
-        const stoptz = moment(stop).tz(TZ);
+        const starttz = TZ ? moment(start).tz(TZ) : moment(start);
+        const stoptz = TZ ? moment(stop).tz(TZ) : moment(stop);
 
         // We want to align our minor ticks to our major ones.
         // For instance if we are showing 3 hour minor ticks then we

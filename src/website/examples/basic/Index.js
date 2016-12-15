@@ -220,5 +220,4 @@ const basic = React.createClass({
 
 // Export example
 import basic_docs from "./basic_docs.md";
-import basic_thumbnail from "./basic_thumbnail.png";
-export default {basic, basic_docs, basic_thumbnail};
+export default {basic, basic_docs};

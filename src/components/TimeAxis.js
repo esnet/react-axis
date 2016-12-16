@@ -8,17 +8,17 @@
  *  LICENSE file in the root directory of this source tree.
  */
 
+const moment = require("moment");
+import _ from "underscore";
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { scaleTime } from "d3-scale";
-const moment = require("moment");
-import _ from "underscore";
-
 require("moment-timezone");
 
 import Tick from "./Tick";
+import durationFormatter from "../formatters/duration-format";
+import timeFormatter from "../formatters/time-format";
 import "./Axis.css";
-import durationFormatter from '../duration-format.js';
 
 const durationSecond = 1000;
 const durationMinute = durationSecond * 60;
@@ -28,14 +28,14 @@ const durationWeek = durationDay * 7;
 const durationMonth = durationDay * 30;
 const durationYear = durationDay * 365;
 
-const formatterMap = {
-    second: ":ss",
-    minute: "h:mm a",
-    hour: "h a",
-    day: "ddd DD",
-    week: "MMM DD",
-    month: "MMM",
-    year: "Y",
+const majors = {
+    "second": "minute",
+    "minute": "hour",
+    "hour": "day",
+    "day": "month",
+    "week": "month",
+    "month": "year",
+    "year": "year"
 };
 
 const tickIntervals = [
@@ -253,8 +253,16 @@ export default React.createClass({
     },
 
     renderAxisTicks() {
-        const TZ = this.props.timezone;
-        // const p = this.props.position;
+        let formatter;
+        let timezone = this.props.timezone;
+
+        // A duration format is relative to UTC for the purposes
+        // of tick alignment
+        const formatAsDuration = (this.props.format === "duration");
+        if (formatAsDuration) {
+            timezone = "Etc/UTC";
+        }
+
         const interval = 5; //this.props.interval
 
         const scale = scaleTime()
@@ -265,67 +273,34 @@ export default React.createClass({
         const stop = +this.props.endTime;
         const target = Math.abs(stop - start) / interval;
 
+        // Determine the time unit of the spacing of ticks,
+        // either because it's explicitly defined as the format
+        // (day, month, year, etc), or using our tickInterval
+        // lookup
         let type, num;
-        for (const [d, t, n] of tickIntervals) {
-            if (target < d) break;
-            type = t;
-            num = n;
-        }
-        
-        const majors = {
-            "second": "minute",
-            "minute": "hour",
-            "hour": "day",
-            "day": "month",
-            "week": "month",
-            "month": "year",
-            "year": "year"
-        };
-
-        const defaultFormatter = function(v) {
-            let isMajor = false;
-            let t = type;
-            if (TZ && moment(v).tz(TZ)
-                .startOf(majors[type])
-                .isSame(moment(v).tz(TZ))) {
-                t = majors[type];
-                isMajor = true;
-            }
-            if (!TZ && moment(v)
-                .startOf(majors[type])
-                .isSame(moment(v))) {
-                t = majors[type];
-                isMajor = true;
-            }
-            return {
-                label: TZ ? moment(v).tz(TZ).format(formatterMap[t]) :
-                            moment(v).format(formatterMap[t]),
-                size: isMajor ? 25 : 15,
-                labelAlign: "adjacent"
-            }
-        }
-        
-        let formatter = this.props.format || defaultFormatter;
-        if (_.isString(formatter)) {
-            if (formatter === "duration") {
-                formatter = (v) => ({
-                    label: durationFormatter(moment.duration(+v)),
-                    size: 15,
-                    labelAlign: "adjacent"
-                });
-            } else {
-                type = formatter;
-                num = 1;
-                formatter = (v) => ({
-                    label: moment(v).tz(TZ).format(formatterMap[type]),
-                    size: 15,
-                    labelAlign: "adjacent"
-                });
+        if (_.isString(formatter) && formatter !== "duration") {
+            type = formatter;
+            num = 1;
+        } else {
+            for (const [d, t, n] of tickIntervals) {
+                if (target < d) break;
+                type = t;
+                num = n;
             }
         }
 
-        const starttz = TZ ? moment(start).tz(TZ) : moment(start);
-        const stoptz = TZ ? moment(stop).tz(TZ) : moment(stop);
+        formatter = this.props.format ||
+                        timeFormatter(type, timezone);
+
+        // Formatter will be a function (date) => string, or
+        // a string format type. In the case of the string type
+        // that might be "duration", or "minutes", "day", etc.
+        if (formatAsDuration) {
+            formatter = durationFormatter();
+        }
+       
+        const starttz = timezone ? moment(start).tz(timezone) : moment(start);
+        const stoptz = timezone ? moment(stop).tz(timezone) : moment(stop);
 
         // We want to align our minor ticks to our major ones.
         // For instance if we are showing 3 hour minor ticks then we
@@ -355,9 +330,7 @@ export default React.createClass({
                         height={this.props.height} />
                 );
             }
-
             d = d.add(num, type);
-
             i++;
         }
         return ticks;

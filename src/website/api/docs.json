@@ -421,7 +421,7 @@
                   "computed": false
                 },
                 {
-                  "value": "\"relative\"",
+                  "value": "\"duration\"",
                   "computed": false
                 }
               ]
@@ -432,7 +432,7 @@
           ]
         },
         "required": false,
-        "description": "The format for the tick labels.\n\nThe default it to compute this automatically. You can also specify this\nas a string or function.\n\nSix special options exist, specified as a string: setting format to:\n * \"second\",\n * \"hour\"\n * \"day\"\n * \"month\"\n * \"year\"\n\nwill show only ticks on those, and every one of those intervals.\n\nFor example maybe you are showing a bar chart for October 2014 then setting\nthe format to \"day\" will insure that a label is placed for each and every day,\nall 31 of them. Be careful though, it's easy to add too many labels this way.\n\nThe last string option is:\n * \"relative\".\n\nThis interprets the time as a duration. This is good for data that is\nspecified relative to its start time, rather than\nas an actual date/time.\n\nFinally, format can also be a function. The function will be passed the date\nit is rendering. It expects the return result to be a an object describing\nthe resulting tick. For example:\n\n```js\n    format = (d) => ({\n        label: moment(d).format(h:mm a),\n        size: 15,\n        labelAlign: \"adjacent\"\n    });\n```"
+        "description": "The format for the tick labels.\n\nThe default it to compute this automatically. You can also specify this\nas a string or function.\n\nSix special options exist, specified as a string: setting format to:\n * \"second\",\n * \"hour\"\n * \"day\"\n * \"month\"\n * \"year\"\n\nwill show only ticks on those, and every one of those intervals.\n\nFor example maybe you are showing a bar chart for October 2014 then setting\nthe format to \"day\" will insure that a label is placed for each and every day,\nall 31 of them. Be careful though, it's easy to add too many labels this way.\n\nThe last string option is:\n * \"duration\".\n\nThis interprets the time as a duration. This is good for data that is\nspecified relative to its start time, rather than as an actual date/time.\n\nFinally, format can also be a function. The function will be passed the date\nit is rendering. It expects the return result to be a an object describing\nthe resulting tick. For example:\n\n```js\n    format = (d) => ({\n        label: moment(d).format(h:mm a),\n        size: 15,\n        labelAlign: \"adjacent\"\n    });\n```"
       },
       "tickMinor": {
         "type": {

@@ -1,7 +1,6 @@
 import renderer from "react-test-renderer";
 import React from "React";
-
-import Tick1 from "../../test_components/Tick1";
+import Tick from "../../test_components/Tick";
 
 //
 // Ticks at the bottom of a chart (Bottom aligned)
@@ -9,35 +8,35 @@ import Tick1 from "../../test_components/Tick1";
 
 test('Basic Tick with label 1.2', () => {
   const tree = renderer.create(
-        <Tick1 test={0}/>
+        <Tick test={0}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Tick with position changed to 50px across', () => {
   const tree = renderer.create(
-        <Tick1 test={1}/>
+        <Tick test={1}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Tick with label aligned to center of mark', () => {
   const tree = renderer.create(
-        <Tick1 test={2}/>
+        <Tick test={2}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('A Tick with a longer mark size', () => {
   const tree = renderer.create(
-        <Tick1 test={3}/>
+        <Tick test={3}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('A Tick with a longer mark size and adjacent alignment', () => {
   const tree = renderer.create(
-        <Tick1 test={3}/>
+        <Tick test={3}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -48,35 +47,35 @@ test('A Tick with a longer mark size and adjacent alignment', () => {
 
 test('Top aligned Tick with label 1.2', () => {
   const tree = renderer.create(
-        <Tick1 test={0}/>
+        <Tick test={0}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Top aligned Tick with position changed to 50px across', () => {
   const tree = renderer.create(
-        <Tick1 test={1}/>
+        <Tick test={1}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Top aligned Tick with label aligned to center of mark', () => {
   const tree = renderer.create(
-        <Tick1 test={2}/>
+        <Tick test={2}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Top aligned A Tick with a longer mark size', () => {
   const tree = renderer.create(
-        <Tick1 test={3}/>
+        <Tick test={3}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Top aligned A Tick with a longer mark size and adjacent alignment', () => {
   const tree = renderer.create(
-        <Tick1 test={3}/>
+        <Tick test={3}/>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

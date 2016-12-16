@@ -4,7 +4,6 @@ exports[`test A Tick with a longer mark size 1`] = `
   style={
     Object {
       "transform": "translate(80px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -47,7 +46,6 @@ exports[`test A Tick with a longer mark size and adjacent alignment 1`] = `
   style={
     Object {
       "transform": "translate(80px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -90,7 +88,6 @@ exports[`test Basic Tick with label 1.2 1`] = `
   style={
     Object {
       "transform": "translate(0px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -133,7 +130,6 @@ exports[`test Tick with label aligned to center of mark 1`] = `
   style={
     Object {
       "transform": "translate(50px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -176,7 +172,6 @@ exports[`test Tick with position changed to 50px across 1`] = `
   style={
     Object {
       "transform": "translate(50px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -219,7 +214,6 @@ exports[`test Top aligned A Tick with a longer mark size 1`] = `
   style={
     Object {
       "transform": "translate(80px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -262,7 +256,6 @@ exports[`test Top aligned A Tick with a longer mark size and adjacent alignment 
   style={
     Object {
       "transform": "translate(80px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -305,7 +298,6 @@ exports[`test Top aligned Tick with label 1.2 1`] = `
   style={
     Object {
       "transform": "translate(0px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -348,7 +340,6 @@ exports[`test Top aligned Tick with label aligned to center of mark 1`] = `
   style={
     Object {
       "transform": "translate(50px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g
@@ -391,7 +382,6 @@ exports[`test Top aligned Tick with position changed to 50px across 1`] = `
   style={
     Object {
       "transform": "translate(50px, 0px)",
-      "transition": "transform 200ms",
     }
   }>
   <g

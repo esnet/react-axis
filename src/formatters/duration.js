@@ -1,8 +1,19 @@
+/**
+ *  Copyright (c) 2016, The Regents of the University of California,
+ *  through Lawrence Berkeley National Laboratory (subject to receipt
+ *  of any required approvals from the U.S. Dept. of Energy).
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ *  Modified from from https://github.com/jsmreese/moment-duration-format
+ */
+
 import _ from "underscore";
 import moment from "moment";
 
 /**
- *  Derived from https://github.com/jsmreese/moment-duration-format 
  */
 
 /**
@@ -203,7 +214,6 @@ const defaults = {
     }
 };
 
-// moment.duration.format([template] [, precision] [, settings])
 export default function(duration, template, precision) {
 
     let tokenizer;

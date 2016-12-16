@@ -35,7 +35,7 @@ const timezone = React.createClass({
 
     getInitialState() {
         return {
-            timescale: "5min"
+            timescale: "ytd"
         };
     },
 

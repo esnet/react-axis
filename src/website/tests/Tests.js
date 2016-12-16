@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import Tick1 from "../../test_components/Tick1";
+import TickTest from "../../../test_components/Tick";
 
 const svgStyle = {
     background: "#f3f3f3",
@@ -33,7 +33,7 @@ export default React.createClass({
                                     </td>
                                     <td style={{paddingLeft: 20}}>
                                         <svg style={svgStyle} height="40px">
-                                            <Tick1 test={i}/>
+                                            <TickTest test={i}/>
                                         </svg>
                                     </td>
                                 </tr>
@@ -57,7 +57,7 @@ export default React.createClass({
                                     </td>
                                     <td style={{paddingLeft: 20}}>
                                         <svg style={svgStyle} height="40px">
-                                            <Tick1 test={i}/>
+                                            <TickTest test={i}/>
                                         </svg>
                                     </td>
                                 </tr>
@@ -78,7 +78,7 @@ export default React.createClass({
                             {[10, 11].map(i => (
                                 <td key={i}>
                                     <svg style={svgStyle} height="100px" width="40px">
-                                        <Tick1 test={i}/>
+                                        <TickTest test={i}/>
                                     </svg>
                                 </td>
                             ))}
@@ -97,7 +97,7 @@ export default React.createClass({
                             {[12, 13].map(i => (
                                 <td key={i}>
                                     <svg style={svgStyle} height="100px" width="40px">
-                                        <Tick1 test={i}/>
+                                        <TickTest test={i}/>
                                     </svg>
                                 </td>
                             ))}

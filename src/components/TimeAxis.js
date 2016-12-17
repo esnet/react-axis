@@ -16,8 +16,8 @@ import { scaleTime } from "d3-scale";
 require("moment-timezone");
 
 import Tick from "./Tick";
-import durationFormatter from "../formatters/duration-format";
-import timeFormatter from "../formatters/time-format";
+import durationFormatter from "./formatters/duration-format";
+import timeFormatter from "./formatters/time-format";
 import "./Axis.css";
 
 const durationSecond = 1000;

@@ -5,8 +5,8 @@
 An axis widget intended to replace generated D3 SVG with a React friendly component that supports timezones correctly.
 
 Under the hood, it uses:
-    * d3.scale and d3.format
-    * moment.js and moment-timezone
+ * d3.scale and d3.format
+ * moment.js and moment-timezone
 
 SVG rendering is done with React.
 
@@ -20,6 +20,7 @@ This is a basic version of the functionality needed for a full charting applicat
  * A more specific `TimeAxis` component
      - Supports arbitrary timezones
      - Supports animations between scales
+     - Custom format functions
 
 We will be merging this into [react-timeseries-charts](http://software.es.net/react-timeseries-charts). Once that happens we'll bump this to v1.0.
 

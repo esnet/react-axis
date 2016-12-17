@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import TickTest from "../../../test_components/Tick";
+import TickTest from "../../test_components/Tick";
 
 const svgStyle = {
     background: "#f3f3f3",

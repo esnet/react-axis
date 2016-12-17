@@ -1,4 +1,4 @@
-import formatter from '../duration-format.js';
+import formatter from '../formatters/duration-format.js';
 import moment from "moment";
 
 it('has moment durations available and functional', () => {
@@ -9,6 +9,7 @@ it('has moment durations available and functional', () => {
 
 it('can format a duration', () => {
     const d = moment.duration(123, "minutes");
-    //expect(human).toEqual("2 days");
+    const fmt = formatter();
+    expect(fmt(d).label).toEqual("2:03");
 });
 

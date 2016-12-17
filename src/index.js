@@ -9,6 +9,7 @@ import Intro from "./website/intro/Intro";
 import Guide from "./website/guides/Guide";
 import Example from "./website/examples/Example";
 import API from "./website/api/API";
+import Tests from "./website/tests/Tests";
 
 ReactDOM.render((
     <Router history={hashHistory}>
@@ -17,6 +18,7 @@ ReactDOM.render((
             <Route path="guide/:doc" component={Guide} />
             <Route path="example/:example" component={Example} />
             <Route path="api/:component" component={API} />
+            <Route path="tests" component={Tests} />
         </Route>
     </Router>
 ), document.getElementById("root"));

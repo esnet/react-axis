@@ -4,9 +4,14 @@
         "description": "Basic axis example.",
         "tags": ["Axis"]
     },
-    "time": {
-        "title": "Time axis",
-        "description": "Time axis example.",
-        "tags": ["TimeAxis"]
+    "timezone": {
+        "title": "Timezones",
+        "description": "Time axis with timezone support.",
+        "tags": ["TimeAxis", "Timezones"]
+    },
+    "duration": {
+        "title": "Durations",
+        "description": "Time axis that shows elapsed time, rather than absolute dates.",
+        "tags": ["TimeAxis", "Duration"]
     }
 }

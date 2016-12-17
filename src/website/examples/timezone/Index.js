@@ -11,7 +11,7 @@
 import React from "react";
 import moment from "moment";
 
-import Axis from "../../../components/TimeAxis";
+import TimeAxis from "../../../components/TimeAxis";
 
 const scales = [
     {label: "1min", begin: (d) => moment(d).subtract(1, "minute").toDate()},
@@ -31,12 +31,30 @@ const scales = [
     {label: "ytd", begin: (d) => moment(d).startOf("year").toDate()}
 ];
 
-const time = React.createClass({
+const timezone = React.createClass({
 
     getInitialState() {
         return {
-            timescale: "1d"
+            timescale: "ytd"
         };
+    },
+
+    /**
+     * When our page mounts we start up an interval timer.
+     * Each time that fires we set a net timerange in our
+     * component state and that drives rerendering.
+     */
+    componentDidMount() {
+        this._timer = setInterval(() => {
+            this.forceUpdate();
+        }, 1000);
+    },
+
+    /**
+     * When out component unmounts, we stop the interval timer
+     */
+    componentWillUnmount() {
+        clearInterval(this._timer);
     },
 
     renderTimeRanges() {
@@ -93,67 +111,59 @@ const time = React.createClass({
                 <hr />
 
                 <div className="col-md-2">
-                    Australia/Perth
+                    Australia/Adelaide
                 </div>
                 <div className="col-md-10" style={rowStyle}>
-                    <Axis
-                        timezone="Australia/Perth"
-                        tickExtend={400}
-                        format="d"
+                    <TimeAxis
+                        timezone="Australia/Adelaide"
                         standalone={true}
-                        type={this.state.type}
                         position="bottom"
                         beginTime={beginTime}
                         endTime={endTime}
-                        width={800} height={50} />
+                        width={800}
+                        height={50} />
                 </div>
 
                 <div className="col-md-2">
                     UTC
                 </div>
                 <div className="col-md-10" style={rowStyle}>
-                    <Axis
+                    <TimeAxis
                         timezone="Etc/UTC"
-                        tickExtend={400}
-                        format="d"
                         standalone={true}
-                        type={this.state.type}
                         position="bottom"
                         beginTime={beginTime}
                         endTime={endTime}
-                        width={800} height={50} />
+                        width={800}
+                        height={50} />
                 </div>
 
                 <div className="col-md-2">
                     America/Chicago
                 </div>
                 <div className="col-md-10" style={rowStyle}>
-                    <Axis
+                    <TimeAxis
                         timezone="America/Chicago"
-                        tickExtend={400}
-                        format="d"
                         standalone={true}
-                        type={this.state.type}
                         position="bottom"
                         beginTime={beginTime}
                         endTime={endTime}
-                        width={800} height={50} />
+                        width={800}
+                        height={50} />
                 </div>
 
                 <div className="col-md-2">
                     America/Los_Angeles
                 </div>
                 <div className="col-md-10" style={rowStyle}>
-                    <Axis
+                    <TimeAxis
                         timezone="America/Los_Angeles"
-                        tickExtend={400}
-                        format="d"
                         standalone={true}
-                        type={this.state.type}
                         position="bottom"
                         beginTime={beginTime}
                         endTime={endTime}
-                        width={800} height={50} />
+                        width={800}
+                        height={50} />
                 </div>
 
             </div>
@@ -174,6 +184,5 @@ const time = React.createClass({
 });
 
 // Export example
-import time_docs from "./time_docs.md";
-import time_thumbnail from "./time_thumbnail.png";
-export default {time, time_docs, time_thumbnail};
+import timezone_docs from "./timezone_docs.md";
+export default {timezone, timezone_docs};

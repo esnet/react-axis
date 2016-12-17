@@ -1,7 +1,7 @@
 {
   "name": "react-axis",
   "version": "0.1.0",
-  "description": "An axis component build with React",
+  "description": "An axis component built with React",
   "keywords": [
     "axis",
     "timezones",
@@ -21,9 +21,9 @@
   },
   "scripts": {
     "docs": "echo \"*** Building API docs\n\" && react-docgen src/components -x js -o src/website/api/docs.json --pretty",
-    "lint": "eslint src/*.jsx src/*.js",
+    "lint": "eslint src/*.js",
     "test": "react-scripts test --env=jsdom",
-    "build-lib": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components --stage 0 --out-dir lib/components && babel src/entry.js --stage 0 --out-file lib/entry.js",
+    "build-lib": "echo \"*** Building lib\n\" && rm -rf lib/* && babel src/components  --ignore *.test.js --stage 0 --out-dir lib/components && babel src/entry.js --stage 0 --out-file lib/entry.js",
     "start-website": "react-scripts start",
     "build-website": "echo \"*** Building website\n\" && rm -rf docs && react-scripts build && mv build docs"
   },
@@ -58,6 +58,7 @@
     "react-markdown": "^1.0.5",
     "react-router": "^2.6.1",
     "react-scripts": "^0.8.3",
+    "react-test-renderer": "^15.4.1",
     "underscore": "^1.8.3",
     "webpack": "^1.14.0"
   },

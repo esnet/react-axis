@@ -1,0 +1,419 @@
+exports[`test A Tick with a longer mark size 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(80px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={20} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={23}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test A Tick with a longer mark size and adjacent alignment 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(80px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={20} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={23}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Basic Tick with label 1.2 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(0px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="left"
+      x={2}
+      y={6}>
+      1.2
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Tick with label aligned to center of mark 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(50px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={18}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Tick with position changed to 50px across 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(50px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="left"
+      x={2}
+      y={6}>
+      1.4
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Top aligned A Tick with a longer mark size 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(80px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={20} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={23}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Top aligned A Tick with a longer mark size and adjacent alignment 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(80px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={20} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={23}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Top aligned Tick with label 1.2 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(0px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="left"
+      x={2}
+      y={6}>
+      1.2
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Top aligned Tick with label aligned to center of mark 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(50px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="middle"
+      x={0}
+      y={18}>
+      1.6
+    </text>
+  </g>
+</g>
+`;
+
+exports[`test Top aligned Tick with position changed to 50px across 1`] = `
+<g
+  className="tick-grp"
+  style={
+    Object {
+      "transform": "translate(50px, 0px)",
+    }
+  }>
+  <g
+    className="tick-grp">
+    <line
+      className="tick-line"
+      style={
+        Object {
+          "stroke": "#AAA",
+          "strokeWidth": 1,
+        }
+      }
+      x1={0}
+      x2={0}
+      y1={-0}
+      y2={15} />
+    <text
+      alignmentBaseline="hanging"
+      className="tick-label"
+      style={
+        Object {
+          "fill": "#b0b0b0",
+          "fontSize": 11,
+          "pointerEvents": "none",
+          "textAnchor": "left",
+        }
+      }
+      textAnchor="left"
+      x={2}
+      y={6}>
+      1.4
+    </text>
+  </g>
+</g>
+`;

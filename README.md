@@ -1,5 +1,7 @@
 # React Axis
 
+<img src="https://github.com/esnet/react-axis/blob/master/timeaxis.png" alt="screenshot"/>
+
 An axis widget intended to replace generated D3 SVG with a React friendly component that supports timezones correctly.
 
 Under the hood, it uses:

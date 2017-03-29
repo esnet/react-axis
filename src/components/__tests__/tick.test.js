@@ -1,5 +1,5 @@
 import renderer from "react-test-renderer";
-import React from "React";
+import React from "react";
 import Tick from "../../test_components/Tick";
 
 //

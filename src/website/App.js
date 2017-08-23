@@ -56,6 +56,7 @@ class App extends Component {
                         <li><Link to="/example/basic">Basic example</Link></li>
                         <li><Link to="/example/timezone">Timezone example</Link></li>
                         <li><Link to="/example/duration">Duration example</Link></li>
+                        <li><Link to="/example/format">Format example</Link></li>
                     </ul>
 
                     <div className="sidebar-heading">API</div>

@@ -13,5 +13,10 @@
         "title": "Durations",
         "description": "Time axis that shows elapsed time, rather than absolute dates.",
         "tags": ["TimeAxis", "Duration"]
+    },
+    "format": {
+        "title": "TimeAxis Formats",
+        "description": "Time Axis with different format types",
+        "tags": ["TimeAxis"]
     }
 }

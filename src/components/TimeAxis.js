@@ -175,6 +175,7 @@ export default React.createClass({
             React.PropTypes.oneOf([
                 "second",
                 "minute",
+                "hour",
                 "day",
                 "month",
                 "year",
@@ -253,7 +254,7 @@ export default React.createClass({
     },
 
     renderAxisTicks() {
-        let formatter;
+        let formatter = this.props.format;
         let timezone = this.props.timezone;
 
         // A duration format is relative to UTC for the purposes
@@ -289,8 +290,7 @@ export default React.createClass({
             }
         }
 
-        formatter = this.props.format ||
-                        timeFormatter(type, timezone);
+        formatter = timeFormatter(type, timezone);
 
         // Formatter will be a function (date) => string, or
         // a string format type. In the case of the string type

@@ -14,25 +14,27 @@ import moment from "moment";
 import TimeAxis from "../../../components/TimeAxis";
 
 const scales = [
-    {label: "1min", begin: (d) => moment(d).subtract(1, "minute").toDate()},
-    {label: "5min", begin: (d) => moment(d).subtract(5, "minutes").toDate()},
-    {label: "30min", begin: (d) => moment(d).subtract(30, "minutes").toDate()},
-    {label: "1h", begin: (d) => moment(d).subtract(1, "hours").toDate()},
-    {label: "3h", begin: (d) => moment(d).subtract(3, "hours").toDate()},
-    {label: "6h", begin: (d) => moment(d).subtract(6, "hours").toDate()},
-    {label: "1d", begin: (d) => moment(d).subtract(1, "days").toDate()},
-    {label: "5d", begin: (d) => moment(d).subtract(5, "days").toDate()},
-    {label: "1m", begin: (d) => moment(d).subtract(1, "months").toDate()},
-    {label: "3m", begin: (d) => moment(d).subtract(3, "months").toDate()},
-    {label: "6m", begin: (d) => moment(d).subtract(6, "months").toDate()},
-    {label: "1y", begin: (d) => moment(d).subtract(1, "year").toDate()},
-    {label: "2y", begin: (d) => moment(d).subtract(2, "year").toDate()},
-    {label: "5y", begin: (d) => moment(d).subtract(5, "year").toDate()},
-    {label: "ytd", begin: (d) => moment(d).startOf("year").toDate()}
+    { label: "1min", begin: d => moment(d).subtract(1, "minute").toDate() },
+    { label: "5min", begin: d => moment(d).subtract(5, "minutes").toDate() },
+    { label: "30min", begin: d => moment(d).subtract(30, "minutes").toDate() },
+    { label: "1h", begin: d => moment(d).subtract(1, "hours").toDate() },
+    { label: "3h", begin: d => moment(d).subtract(3, "hours").toDate() },
+    { label: "6h", begin: d => moment(d).subtract(6, "hours").toDate() },
+    { label: "1d", begin: d => moment(d).subtract(1, "days").toDate() },
+    { label: "5d", begin: d => moment(d).subtract(5, "days").toDate() },
+    { label: "1m", begin: d => moment(d).subtract(1, "months").toDate() },
+    { label: "3m", begin: d => moment(d).subtract(3, "months").toDate() },
+    { label: "6m", begin: d => moment(d).subtract(6, "months").toDate() },
+    { label: "1y", begin: d => moment(d).subtract(1, "year").toDate() },
+    { label: "2y", begin: d => moment(d).subtract(2, "year").toDate() },
+    { label: "5y", begin: d => moment(d).subtract(5, "year").toDate() },
+    { label: "10y", begin: d => moment(d).subtract(10, "year").toDate() },
+    { label: "20y", begin: d => moment(d).subtract(20, "year").toDate() },
+    { label: "50y", begin: d => moment(d).subtract(50, "year").toDate() },
+    { label: "ytd", begin: d => moment(d).startOf("year").toDate() }
 ];
 
 const timezone = React.createClass({
-
     getInitialState() {
         return {
             timescale: "ytd"
@@ -45,9 +47,12 @@ const timezone = React.createClass({
      * component state and that drives rerendering.
      */
     componentDidMount() {
-        this._timer = setInterval(() => {
-            this.forceUpdate();
-        }, 1000);
+        this._timer = setInterval(
+            () => {
+                this.forceUpdate();
+            },
+            1000
+        );
     },
 
     /**
@@ -62,7 +67,7 @@ const timezone = React.createClass({
             fontWeight: 600,
             color: "grey",
             cursor: "default",
-            paddingLeft: 10,
+            paddingLeft: 10
         };
 
         const linkStyleActive = {
@@ -71,13 +76,14 @@ const timezone = React.createClass({
             paddingLeft: 10
         };
 
-        return scales.map(({label, begin}, i) => {
+        return scales.map(({ label, begin }, i) => {
             return (
                 <span
                     key={i}
                     style={this.state.timescale !== label ? linkStyleActive : linkStyle}
-                    onClick={() => this.setState({timescale: label})}>
-                        {label}
+                    onClick={() => this.setState({ timescale: label })}
+                >
+                    {label}
                 </span>
             );
         });
@@ -104,7 +110,7 @@ const timezone = React.createClass({
         return (
             <div className="row">
 
-                <div className="col-md-12" style={{fontSize: 14, color: "#777"}}>
+                <div className="col-md-12" style={{ fontSize: 14, color: "#777" }}>
                     {this.renderTimeRanges()}
                 </div>
 
@@ -121,7 +127,8 @@ const timezone = React.createClass({
                         beginTime={beginTime}
                         endTime={endTime}
                         width={800}
-                        height={50} />
+                        height={50}
+                    />
                 </div>
 
                 <div className="col-md-2">
@@ -135,7 +142,8 @@ const timezone = React.createClass({
                         beginTime={beginTime}
                         endTime={endTime}
                         width={800}
-                        height={50} />
+                        height={50}
+                    />
                 </div>
 
                 <div className="col-md-2">
@@ -149,7 +157,8 @@ const timezone = React.createClass({
                         beginTime={beginTime}
                         endTime={endTime}
                         width={800}
-                        height={50} />
+                        height={50}
+                    />
                 </div>
 
                 <div className="col-md-2">
@@ -163,7 +172,8 @@ const timezone = React.createClass({
                         beginTime={beginTime}
                         endTime={endTime}
                         width={800}
-                        height={50} />
+                        height={50}
+                    />
                 </div>
 
             </div>
@@ -185,4 +195,4 @@ const timezone = React.createClass({
 
 // Export example
 import timezone_docs from "./timezone_docs.md";
-export default {timezone, timezone_docs};
+export default { timezone, timezone_docs };

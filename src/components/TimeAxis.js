@@ -29,37 +29,43 @@ const durationMonth = durationDay * 30;
 const durationYear = durationDay * 365;
 
 const majors = {
-    "second": "minute",
-    "minute": "hour",
-    "hour": "day",
-    "day": "month",
-    "week": "month",
-    "month": "year",
-    "year": "year"
+    second: "minute",
+    minute: "hour",
+    hour: "day",
+    day: "month",
+    week: "month",
+    month: "year",
+    year: "year"
 };
 
 const tickIntervals = [
-    [      durationSecond, "second",  1],
-    [  5 * durationSecond, "second",  5],
-    [ 15 * durationSecond, "second", 15],
-    [ 30 * durationSecond, "second", 30],
-    [      durationMinute, "minute",  1],
-    [  5 * durationMinute, "minute",  5],
-    [ 15 * durationMinute, "minute", 15],
-    [ 30 * durationMinute, "minute", 30],
-    [      durationHour  ,   "hour",  1],
-    [  3 * durationHour  ,   "hour",  3],
-    [  6 * durationHour  ,   "hour",  6],
-    [ 12 * durationHour  ,   "hour", 12],
-    [      durationDay   ,    "day",  1],
-    [  2 * durationDay   ,    "day",  2],
-    [  3 * durationDay   ,    "day",  3],
-    [  4 * durationDay   ,    "day",  4],
-    [  5 * durationDay   ,    "day",  5],
-    [      durationWeek  ,   "week",  1],
-    [      durationMonth ,  "month",  1],
-    [  3 * durationMonth ,  "month",  3],
-    [      durationYear  ,   "year",  1]
+    [durationSecond, "second", 1],
+    [5 * durationSecond, "second", 5],
+    [15 * durationSecond, "second", 15],
+    [30 * durationSecond, "second", 30],
+    [durationMinute, "minute", 1],
+    [5 * durationMinute, "minute", 5],
+    [15 * durationMinute, "minute", 15],
+    [30 * durationMinute, "minute", 30],
+    [durationHour, "hour", 1],
+    [3 * durationHour, "hour", 3],
+    [6 * durationHour, "hour", 6],
+    [12 * durationHour, "hour", 12],
+    [durationDay, "day", 1],
+    [2 * durationDay, "day", 2],
+    [3 * durationDay, "day", 3],
+    [4 * durationDay, "day", 4],
+    [5 * durationDay, "day", 5],
+    [durationWeek, "week", 1],
+    [durationMonth, "month", 1],
+    [3 * durationMonth, "month", 3],
+    [durationYear, "year", 1],
+    [2 * durationYear, "year", 2],
+    [5 * durationYear, "year", 5],
+    [10 * durationYear, "year", 10],
+    [25 * durationYear, "year", 25],
+    [100 * durationYear, "year", 100],
+    [500 * durationYear, "year", 250]
 ];
 
 /**
@@ -92,7 +98,6 @@ const tickIntervals = [
  *
  */
 export default React.createClass({
-
     displayName: "TimeAxis",
 
     getDefaultProps() {
@@ -112,11 +117,11 @@ export default React.createClass({
                 pointerEvents: "none"
             },
             absolute: false,
+            smoothTransition: false
         };
     },
 
     propTypes: {
-
         align: React.PropTypes.oneOf(["center", "left"]),
 
         /**
@@ -199,7 +204,7 @@ export default React.createClass({
          * by this amount. This can be used to provide a grid
          * line for each tick.
          */
-        tickExtend: React.PropTypes.number,
+        tickExtend: React.PropTypes.number
     },
 
     renderAxisLabel() {
@@ -225,31 +230,29 @@ export default React.createClass({
                 translate = `translate(5, ${labelPosition})`;
                 break;
             default:
-                //pass
+            //pass
         }
         return (
             <g transform={translate}>
-                <text
-                    transform={rotate}
-                    textAnchor={anchor}
-                    style={labelStyle}>
+                <text transform={rotate} textAnchor={anchor} style={labelStyle}>
                     {this.props.label}
                 </text>
             </g>
         );
     },
- 
+
     renderAxisLine() {
         const p = this.props.position;
         return (
             <line
                 key="axis"
                 className="axis"
-                style={{stroke: "#AAA", strokeWidth: 2}}
+                style={{ stroke: "#AAA", strokeWidth: 2 }}
                 x1={this.props.margin}
                 y1={p === "bottom" ? 0 : this.props.height}
                 x2={this.props.width - this.props.margin}
-                y2={p === "bottom" ? 0 : this.props.height} />
+                y2={p === "bottom" ? 0 : this.props.height}
+            />
         );
     },
 
@@ -259,7 +262,7 @@ export default React.createClass({
 
         // A duration format is relative to UTC for the purposes
         // of tick alignment
-        const formatAsDuration = (this.props.format === "duration");
+        const formatAsDuration = this.props.format === "duration";
         if (formatAsDuration) {
             timezone = "Etc/UTC";
         }
@@ -269,7 +272,7 @@ export default React.createClass({
         const scale = scaleTime()
             .domain([this.props.beginTime, this.props.endTime])
             .range([this.props.margin, this.props.width - this.props.margin * 2]);
-       
+
         const start = +this.props.beginTime;
         const stop = +this.props.endTime;
         const target = Math.abs(stop - start) / interval;
@@ -298,7 +301,7 @@ export default React.createClass({
         if (formatAsDuration) {
             formatter = durationFormatter();
         }
-       
+
         const starttz = timezone ? moment(start).tz(timezone) : moment(start);
         const stoptz = timezone ? moment(stop).tz(timezone) : moment(stop);
 
@@ -327,7 +330,9 @@ export default React.createClass({
                         extend={this.props.tickExtend}
                         labelAlign={labelAlign}
                         width={this.props.width}
-                        height={this.props.height} />
+                        height={this.props.height}
+                        smoothTransition={this.props.smoothTransition}
+                    />
                 );
             }
             d = d.add(num, type);
@@ -337,30 +342,46 @@ export default React.createClass({
     },
 
     renderAxis() {
-        return (
-            <g>
-                {this.renderAxisLine()}
-                <ReactCSSTransitionGroup
-                    component="g"
-                    transitionName="ticks"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}>
+        if (this.props.transition === true) {
+            return (
+                <g>
+                    {this.renderAxisLine()}
+                    <ReactCSSTransitionGroup
+                        component="g"
+                        transitionName="ticks"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}
+                    >
+                        {this.renderAxisTicks()}
+                    </ReactCSSTransitionGroup>
+                    {this.renderAxisLabel()}
+                </g>
+            );
+        } else {
+            console.log("No transition");
+            return (
+                <g>
+                    {this.renderAxisLine()}
                     {this.renderAxisTicks()}
-                </ReactCSSTransitionGroup>
-                {this.renderAxisLabel()}
-            </g>
-        );
+                    {this.renderAxisLabel()}
+                </g>
+            );
+        }
     },
 
     render() {
         if (this.props.standalone) {
             return (
-                <svg height={this.props.height} width={this.props.width} style={{shapeRendering: "crispEdges"}}>
+                <svg
+                    height={this.props.height}
+                    width={this.props.width}
+                    style={{ shapeRendering: "crispEdges" }}
+                >
                     {this.renderAxis()}
                 </svg>
             );
         } else {
-            return this.renderAxis()
+            return this.renderAxis();
         }
     }
 });

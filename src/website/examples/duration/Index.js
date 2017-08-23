@@ -14,24 +14,23 @@ import moment from "moment";
 import TimeAxis from "../../../components/TimeAxis";
 
 const scales = [
-    {label: "1min", end: (d) => moment(d).add(1, "minute").toDate()},
-    {label: "5min", end: (d) => moment(d).add(5, "minutes").toDate()},
-    {label: "30min", end: (d) => moment(d).add(30, "minutes").toDate()},
-    {label: "1h", end: (d) => moment(d).add(1, "hours").toDate()},
-    {label: "3h", end: (d) => moment(d).add(3, "hours").toDate()},
-    {label: "6h", end: (d) => moment(d).add(6, "hours").toDate()},
-    {label: "1d", end: (d) => moment(d).add(1, "days").toDate()},
-    {label: "5d", end: (d) => moment(d).add(5, "days").toDate()},
-    {label: "1m", end: (d) => moment(d).add(1, "months").toDate()},
-    {label: "3m", end: (d) => moment(d).add(3, "months").toDate()},
-    {label: "6m", end: (d) => moment(d).add(6, "months").toDate()},
-    {label: "1y", end: (d) => moment(d).add(1, "year").toDate()},
-    {label: "2y", end: (d) => moment(d).add(2, "year").toDate()},
-    {label: "5y", end: (d) => moment(d).add(5, "year").toDate()}
+    { label: "1min", end: d => moment(d).add(1, "minute").toDate() },
+    { label: "5min", end: d => moment(d).add(5, "minutes").toDate() },
+    { label: "30min", end: d => moment(d).add(30, "minutes").toDate() },
+    { label: "1h", end: d => moment(d).add(1, "hours").toDate() },
+    { label: "3h", end: d => moment(d).add(3, "hours").toDate() },
+    { label: "6h", end: d => moment(d).add(6, "hours").toDate() },
+    { label: "1d", end: d => moment(d).add(1, "days").toDate() },
+    { label: "5d", end: d => moment(d).add(5, "days").toDate() },
+    { label: "1m", end: d => moment(d).add(1, "months").toDate() },
+    { label: "3m", end: d => moment(d).add(3, "months").toDate() },
+    { label: "6m", end: d => moment(d).add(6, "months").toDate() },
+    { label: "1y", end: d => moment(d).add(1, "year").toDate() },
+    { label: "2y", end: d => moment(d).add(2, "year").toDate() },
+    { label: "5y", end: d => moment(d).add(5, "year").toDate() }
 ];
 
 const duration = React.createClass({
-
     getInitialState() {
         return {
             time: 0,
@@ -45,9 +44,12 @@ const duration = React.createClass({
      * component state and that drives rerendering.
      */
     componentDidMount() {
-        this._timer = setInterval(() => {
-            this.setState({time: this.state.time + 1000});
-        }, 1000);
+        this._timer = setInterval(
+            () => {
+                this.setState({ time: this.state.time + 1000 });
+            },
+            1000
+        );
     },
 
     /**
@@ -62,7 +64,7 @@ const duration = React.createClass({
             fontWeight: 600,
             color: "grey",
             cursor: "default",
-            paddingLeft: 10,
+            paddingLeft: 10
         };
 
         const linkStyleActive = {
@@ -71,13 +73,14 @@ const duration = React.createClass({
             paddingLeft: 10
         };
 
-        return scales.map(({label, begin}, i) => {
+        return scales.map(({ label, begin }, i) => {
             return (
                 <span
                     key={i}
                     style={this.state.timescale !== label ? linkStyleActive : linkStyle}
-                    onClick={() => this.setState({timescale: label})}>
-                        {label}
+                    onClick={() => this.setState({ timescale: label })}
+                >
+                    {label}
                 </span>
             );
         });
@@ -104,7 +107,7 @@ const duration = React.createClass({
         return (
             <div className="row">
 
-                <div className="col-md-12" style={{fontSize: 14, color: "#777"}}>
+                <div className="col-md-12" style={{ fontSize: 14, color: "#777" }}>
                     {this.renderTimeRanges()}
                 </div>
 
@@ -115,13 +118,15 @@ const duration = React.createClass({
                 </div>
                 <div className="col-md-10" style={rowStyle}>
                     <TimeAxis
+                        transition={false}
                         format="duration"
                         standalone={true}
                         position="bottom"
                         beginTime={beginTime}
                         endTime={endTime}
                         width={800}
-                        height={50} />
+                        height={50}
+                    />
                 </div>
             </div>
         );
@@ -142,4 +147,4 @@ const duration = React.createClass({
 
 // Export example
 import duration_docs from "./duration_docs.md";
-export default {duration, duration_docs};
+export default { duration, duration_docs };

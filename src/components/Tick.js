@@ -14,7 +14,6 @@ import React from "react";
  * Builds an axis tick mark with associated label
  */
 export default React.createClass({
-
     displayName: "Tick",
 
     getDefaultProps() {
@@ -35,7 +34,6 @@ export default React.createClass({
      *     label
      */
     renderLabel(label, isTop, tickSize) {
-
         const { labelAlign } = this.props;
 
         const textStyle = {
@@ -58,7 +56,8 @@ export default React.createClass({
                     textAnchor="left"
                     x={x}
                     y={y}
-                    alignmentBaseline={baseLine}>
+                    alignmentBaseline={baseLine}
+                >
                     {label}
                 </text>
             );
@@ -73,7 +72,8 @@ export default React.createClass({
                     textAnchor="middle"
                     x={x}
                     y={y}
-                    alignmentBaseline={baseLine}>
+                    alignmentBaseline={baseLine}
+                >
                     {label}
                 </text>
             );
@@ -84,25 +84,20 @@ export default React.createClass({
         const dir = isTop ? -1 : 1;
         const line = {
             x1: 0,
-            y1: - dir * extend,
+            y1: -dir * extend,
             x2: 0,
-            y2: dir * size,
+            y2: dir * size
         };
-
-        const style = {stroke: "#AAA", strokeWidth: 1};
+        const tickTransitionStyle = {
+            transition: "transform 100ms"
+        };
+        const style = { stroke: "#AAA", strokeWidth: 1 };
         const groupKey = `grp-${id}}`;
         const tickKey = `tick-${id}`;
 
         return (
-            <g
-                className="tick-grp"
-                key={groupKey}>
-                <line
-                    key={tickKey}
-                    className="tick-line"
-                    style={style}
-                    {...line}
-                />
+            <g style={tickTransitionStyle} key={groupKey}>
+                <line key={tickKey} className="tick-line" style={style} {...line} />
                 {this.renderLabel(label, isTop, size)}
             </g>
         );
@@ -123,20 +118,17 @@ export default React.createClass({
             fill: "#b0b0b0",
             pointerEvents: "none"
         };
-        const style = {stroke: "#AAA", strokeWidth: 1};
+        const style = { stroke: "#AAA", strokeWidth: 1 };
         const groupKey = `grp-${id}}`;
         const tickKey = `tick-${id}`;
 
+        const tickTransitionStyle = {
+            transition: "transform 100ms"
+        };
+
         return (
-            <g
-                className="tick-grp"
-                key={groupKey}>
-                <line
-                    key={tickKey}
-                    className="tick-line"
-                    style={style}
-                    {...line}
-                />
+            <g style={tickTransitionStyle} key={groupKey}>
+                <line key={tickKey} className="tick-line" style={style} {...line} />
                 <text
                     key={`label-${label}`}
                     className="tick-label"
@@ -144,7 +136,8 @@ export default React.createClass({
                     textAnchor={isLeft ? "end" : "begin"}
                     alignmentBaseline="middle"
                     x={isLeft ? -size - 3 : size + 3}
-                    y={0}>
+                    y={0}
+                >
                     {label}
                 </text>
             </g>
@@ -160,23 +153,23 @@ export default React.createClass({
             position,
             size = 10,
             extend = 0,
-            align = "top"
-            //transitionTime
+            align = "top",
+            smoothTransition = false
         } = this.props;
+        const shouldTransition = false;
 
+        const transition = "transform 100ms";
         if (align === "top" || align === "bottom") {
             const transform = `translate(${position}px, ${align === "top" ? height : 0}px)`;
-            //const transition = `transform ${transitionTime}ms`;
             return (
-                <g className="tick-grp" style={{transform}}>
+                <g style={smoothTransition ? { transform, transition } : { transform }}>
                     {this.renderVerticalTick(id, label, position, size, extend, align === "top")}
                 </g>
             );
         } else {
             const transform = `translate(${align === "left" ? width : 0}px,${position}px)`;
-            //const transition = `transform ${transitionTime}ms`;
             return (
-                <g className="tick-grp" style={{transform}}>
+                <g style={smoothTransition ? { transform, transition } : { transform }}>
                     {this.renderHorizontalTick(id, label, position, size, extend, align === "left")}
                 </g>
             );

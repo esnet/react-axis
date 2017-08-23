@@ -177,15 +177,7 @@ export default React.createClass({
          * ```
          */
         format: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf([
-                "second",
-                "minute",
-                "hour",
-                "day",
-                "month",
-                "year",
-                "duration"
-            ]),
+            React.PropTypes.oneOf(["second", "minute", "hour", "day", "month", "year", "duration"]),
             React.PropTypes.func
         ]),
 
@@ -358,7 +350,6 @@ export default React.createClass({
                 </g>
             );
         } else {
-            console.log("No transition");
             return (
                 <g>
                     {this.renderAxisLine()}

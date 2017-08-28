@@ -290,7 +290,11 @@ export default React.createClass({
             }
         }
 
-        formatter = timeFormatter(type, timezone);
+        if (typeof this.props.format === 'function') {
+            formatter = this.props.format;
+        } else {
+            formatter = timeFormatter(type, timezone);
+        }
 
         // Formatter will be a function (date) => string, or
         // a string format type. In the case of the string type

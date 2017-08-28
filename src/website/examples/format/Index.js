@@ -82,6 +82,24 @@ const format = React.createClass({
                         width={800}
                         height={50} />
                 </div>
+
+                <div className="col-md-2">
+                    Custom Function
+                </div>
+                <div className="col-md-10" style={rowStyle}>
+                    <TimeAxis
+                        format= {(d) => ({
+                            label: moment(d).format("MMM `YY"),
+                            size: 15,
+                            labelAlign: "adjacent"
+                        })}
+                        standalone={true}
+                        position="bottom"
+                        beginTime={new Date("October 13, 2014")}
+                        endTime={new Date("October 13, 2015")}
+                        width={800}
+                        height={50} />
+                </div>
             </div>
         );
     },

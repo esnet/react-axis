@@ -63,8 +63,8 @@ const format = React.createClass({
                         format="day"
                         standalone={true}
                         position="bottom"
-                        beginTime={new Date("October 13, 2014")}
-                        endTime={new Date("October 17, 2014")}
+                        beginTime={new Date("August 29, 2017")}
+                        endTime={new Date("September 5, 2017")}
                         width={800}
                         height={50} />
                 </div>
@@ -81,6 +81,20 @@ const format = React.createClass({
                         endTime={new Date("October 13, 2014 23:00:00")}
                         width={800}
                         height={50} />
+                </div>
+
+                <div className="col-md-2">
+                    Decade
+                </div>
+                <div className="col-md-10" style={rowStyle}>
+                     <TimeAxis
+                        format="decade"
+                        standalone={true}
+                        position="bottom"
+                        beginTime={new Date("October 13, 1980")}
+                        endTime={new Date("October 13, 2017")}
+                        width={800}
+                        height={50} /> 
                 </div>
 
                 <div className="col-md-2">

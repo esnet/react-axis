@@ -27,6 +27,7 @@ const durationDay = durationHour * 24;
 const durationWeek = durationDay * 7;
 const durationMonth = durationDay * 30;
 const durationYear = durationDay * 365;
+const durationDecade = durationYear * 10;
 
 const majors = {
     "second": "minute",
@@ -35,7 +36,8 @@ const majors = {
     "day": "month",
     "week": "month",
     "month": "year",
-    "year": "year"
+    "year": "year",
+    "decade": "year"
 };
 
 const tickIntervals = [
@@ -59,7 +61,8 @@ const tickIntervals = [
     [      durationWeek  ,   "week",  1],
     [      durationMonth ,  "month",  1],
     [  3 * durationMonth ,  "month",  3],
-    [      durationYear  ,   "year",  1]
+    [      durationYear  ,   "year",  1],
+    [      durationDecade,   "year",  10]
 ];
 
 /**
@@ -179,6 +182,7 @@ export default React.createClass({
                 "day",
                 "month",
                 "year",
+                "decade",
                 "duration"
             ]),
             React.PropTypes.func
@@ -269,7 +273,7 @@ export default React.createClass({
         const scale = scaleTime()
             .domain([this.props.beginTime, this.props.endTime])
             .range([this.props.margin, this.props.width - this.props.margin * 2]);
-       
+        
         const start = +this.props.beginTime;
         const stop = +this.props.endTime;
         const target = Math.abs(stop - start) / interval;
@@ -279,28 +283,28 @@ export default React.createClass({
         // (day, month, year, etc), or using our tickInterval
         // lookup
         let type, num;
-        if (_.isString(formatter) && formatter !== "duration") {
+        if (_.isString(formatter) && !(formatter == "duration" || formatter == "decade")){
             type = formatter;
             num = 1;
         } else {
             for (const [d, t, n] of tickIntervals) {
-                if (target < d) break;
-                type = t;
-                num = n;
+                if (target < d) {
+                    type = t;
+                    num = n;
+                    break;
+                }
             }
-        }
-
-        if (typeof this.props.format === 'function') {
-            formatter = this.props.format;
-        } else {
-            formatter = timeFormatter(type, timezone);
         }
 
         // Formatter will be a function (date) => string, or
         // a string format type. In the case of the string type
         // that might be "duration", or "minutes", "day", etc.
-        if (formatAsDuration) {
+        if (typeof this.props.format === 'function') {
+            formatter = this.props.format;
+        } else if (formatAsDuration) {
             formatter = durationFormatter();
+        } else {
+            formatter = timeFormatter(type, timezone);
         }
        
         const starttz = timezone ? moment(start).tz(timezone) : moment(start);

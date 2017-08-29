@@ -17,7 +17,7 @@ const formatterMap = {
     day: "ddd DD",
     week: "MMM DD",
     month: "MMM",
-    year: "Y",
+    year: "Y"
 };
 
 const majors = {
@@ -26,7 +26,8 @@ const majors = {
     "hour": "day",
     "day": "month",
     "week": "month",
-    "month": "year"
+    "month": "year",
+    "decade": "year"
 };
 
 export default function(type, timezone) {

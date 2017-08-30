@@ -87,14 +87,14 @@ const format = React.createClass({
                     Decade
                 </div>
                 <div className="col-md-10" style={rowStyle}>
-                     <TimeAxis
+                    <TimeAxis
                         format="decade"
                         standalone={true}
                         position="bottom"
-                        beginTime={new Date("October 13, 1980")}
-                        endTime={new Date("October 13, 2017")}
+                        beginTime={new Date("October 13, 1957")}
+                        endTime={new Date("October 14, 2007")}
                         width={800}
-                        height={50} /> 
+                        height={50} />
                 </div>
 
                 <div className="col-md-2">

@@ -36,8 +36,7 @@ const majors = {
     "day": "month",
     "week": "month",
     "month": "year",
-    "year": "year",
-    "decade": "year"
+    "year": "year"
 };
 
 const tickIntervals = [
@@ -288,11 +287,9 @@ export default React.createClass({
             num = 1;
         } else {
             for (const [d, t, n] of tickIntervals) {
-                if (target < d) {
-                    type = t;
-                    num = n;
-                    break;
-                }
+                if (target < d) break;
+                type = t;
+                num = n;
             }
         }
 
@@ -306,15 +303,24 @@ export default React.createClass({
         } else {
             formatter = timeFormatter(type, timezone);
         }
-       
-        const starttz = timezone ? moment(start).tz(timezone) : moment(start);
-        const stoptz = timezone ? moment(stop).tz(timezone) : moment(stop);
+        
+        const starttz = timezone ? moment(start).tz(timezone) : moment(start); // begin time
+        const stoptz = timezone ? moment(stop).tz(timezone) : moment(stop); // end time
 
         // We want to align our minor ticks to our major ones.
         // For instance if we are showing 3 hour minor ticks then we
         // want to them to be 12am, 3am, etc (not 11pm, 2am, etc)
-        const startd = starttz.startOf(majors[type]).add(num, "type");
-        const stopd = stoptz.endOf(type);
+        let startd;
+        let stopd;
+        if (this.props.format === "decade") {
+            // sets start and stop closest to the nearest 100
+            // example : 1981 would set to 1980, 2009 would set to 2010
+            startd = starttz.set('year', Math.floor(starttz.year()/10)*10);
+            stopd = stoptz.set('year', Math.ceil(stoptz.year()/10)*10);
+        } else {
+            startd = starttz.startOf(majors[type]).add(num, "type");
+            stopd = stoptz.endOf(type);
+        }
 
         let i = 0;
         let d = startd;

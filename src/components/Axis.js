@@ -47,6 +47,7 @@ export default React.createClass({
                 pointerEvents: "none"
             },
             absolute: false,
+            angled: false
         };
     },
 
@@ -101,6 +102,11 @@ export default React.createClass({
          * line for each tick.
          */
         tickExtend: React.PropTypes.number,
+
+        /**
+         * Angle the ticks or not
+         */
+        angled: React.PropTypes.bool
     },
 
     renderAxisLabel() {
@@ -229,7 +235,8 @@ export default React.createClass({
                     size={this.props.tickSize}
                     extend={this.props.tickExtend}
                     width={this.props.width}
-                    height={this.props.height} />
+                    height={this.props.height}
+                    angled={this.props.angled} />
             );
         });
     },

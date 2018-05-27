@@ -24,7 +24,8 @@ export default React.createClass({
             align: "bottom",
             labelAlign: "adjacent",
             tickSize: 15,
-            tickExtend: 0
+            tickExtend: 0,
+            angled: false
             //transitionTime: 200
         };
     },
@@ -35,8 +36,7 @@ export default React.createClass({
      *     label
      */
     renderLabel(label, isTop, tickSize) {
-
-        const { labelAlign } = this.props;
+        const { labelAlign, angled } = this.props;
 
         const textStyle = {
             fontSize: 11,
@@ -46,6 +46,8 @@ export default React.createClass({
         };
 
         const baseLine = isTop ? "baseline" : "hanging";
+        const rotate = angled ? `rotate(-65)` : `rotate(0)`;
+        const dx = angled ? "-1.2em" : "0em";
 
         if (labelAlign === "adjacent") {
             const x = 2;
@@ -56,8 +58,11 @@ export default React.createClass({
                     className="tick-label"
                     style={textStyle}
                     textAnchor="left"
+                    transform={rotate}
                     x={x}
                     y={y}
+                    dx={dx}
+                    dy={"0em"}
                     alignmentBaseline={baseLine}>
                     {label}
                 </text>
@@ -71,8 +76,11 @@ export default React.createClass({
                     className="tick-label"
                     style={textStyle}
                     textAnchor="middle"
+                    transform={rotate}
                     x={x}
                     y={y}
+                    dx={dx}
+                    dy={"0em"}
                     alignmentBaseline={baseLine}>
                     {label}
                 </text>
@@ -92,7 +100,7 @@ export default React.createClass({
         const style = {stroke: "#AAA", strokeWidth: 1};
         const groupKey = `grp-${id}}`;
         const tickKey = `tick-${id}`;
-
+        
         return (
             <g
                 className="tick-grp"
@@ -126,6 +134,8 @@ export default React.createClass({
         const style = {stroke: "#AAA", strokeWidth: 1};
         const groupKey = `grp-${id}}`;
         const tickKey = `tick-${id}`;
+        const rotate = this.props.angled ? `rotate(-65)` : `rotate(0)`;
+        const dx = this.props.angled ? "-1.2em" : "0em";
 
         return (
             <g
@@ -142,9 +152,12 @@ export default React.createClass({
                     className="tick-label"
                     style={textStyle}
                     textAnchor={isLeft ? "end" : "begin"}
+                    transform={rotate}
                     alignmentBaseline="middle"
                     x={isLeft ? -size - 3 : size + 3}
-                    y={0}>
+                    y={0}
+                    dx={dx}
+                    dy={"0em"}>
                     {label}
                 </text>
             </g>

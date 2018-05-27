@@ -91,8 +91,8 @@ const format = React.createClass({
                         format="decade"
                         standalone={true}
                         position="bottom"
-                        beginTime={new Date("October 13, 1957")}
-                        endTime={new Date("October 14, 2007")}
+                        beginTime={new Date(-2840140800000)} // Wednesday, December 31, 1879 4:00:00 PM
+                        endTime={new Date(1483228799999)} // Saturday, December 31, 2016 4:00:00 PM
                         width={800}
                         height={50} />
                 </div>

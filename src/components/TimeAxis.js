@@ -114,10 +114,13 @@ export default React.createClass({
                 pointerEvents: "none"
             },
             absolute: false,
+            angled: false
         };
     },
 
     propTypes: {
+
+        angled: React.PropTypes.bool,
 
         align: React.PropTypes.oneOf(["center", "left"]),
 
@@ -258,7 +261,7 @@ export default React.createClass({
 
     renderAxisTicks() {
         let formatter = this.props.format;
-        let timezone = this.props.timezone;
+        let timezone = this.props.timezone; // undefined
 
         // A duration format is relative to UTC for the purposes
         // of tick alignment
@@ -307,6 +310,11 @@ export default React.createClass({
         const starttz = timezone ? moment(start).tz(timezone) : moment(start); // begin time
         const stoptz = timezone ? moment(stop).tz(timezone) : moment(stop); // end time
 
+        // console.log("start ", start);
+        // console.log("stop ", stop);
+        // console.log("starttz ", starttz.format());
+        // console.log("stoptz ", stoptz.format());
+
         // We want to align our minor ticks to our major ones.
         // For instance if we are showing 3 hour minor ticks then we
         // want to them to be 12am, 3am, etc (not 11pm, 2am, etc)
@@ -341,7 +349,8 @@ export default React.createClass({
                         extend={this.props.tickExtend}
                         labelAlign={labelAlign}
                         width={this.props.width}
-                        height={this.props.height} />
+                        height={this.props.height}
+                        angled={this.props.angled} />
                 );
             }
             d = d.add(num, type);
